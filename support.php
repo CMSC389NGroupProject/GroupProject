@@ -28,7 +28,6 @@ function generatePage($body, $title="Grades Submission System") {
     
 </html>
 EOPAGE;
-
     return $page;
 }
 

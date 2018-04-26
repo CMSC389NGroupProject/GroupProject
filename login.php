@@ -29,6 +29,7 @@ if (isset($_POST["submitInfoButton"])) {
 		$db = connectToDB();
         $sqlQuery = sprintf("select password from users where email='%s'", $login);
         $result = mysqli_query($db,$sqlQuery);
+
 if ($result) {
     if (mysqli_num_rows($result) == 0) {
         $bottomPart .= "<h2>Please Register</h2>";
@@ -42,8 +43,7 @@ if ($result) {
 		}
 		else {
 			session_start();
-			$_SESSION['user'] = $user;
-
+			$_SESSION['user'] = $login;
 			header("location:edit.php");
 		}
 	}
