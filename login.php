@@ -14,11 +14,7 @@ $topPart = <<<EOBODY
 <strong>Password: </strong>
 <input type="password" name="password" required/></br></br>
 <input type="submit" name="submitInfoButton" value = "Login"/></br>
-<<<<<<< HEAD
-=======
-</div>
 
->>>>>>> a87a180468fc38838ac20a42050c9676fe5798e9
 </form>
 EOBODY;
 
@@ -49,12 +45,7 @@ if ($result) {
 			session_start();
 			$_SESSION['user'] = $login;
             $_SESSION['email'] = $login;
-
-<<<<<<< HEAD
 			header("location:userinterface.php");
-=======
-			header("location:edit.php");
->>>>>>> a87a180468fc38838ac20a42050c9676fe5798e9
 		}
 	}
 }else{
@@ -63,7 +54,6 @@ if ($result) {
     $bottomPart .="<a href=\"index.html\"><button>Return to main menu</button></a>";
     $bottomPart .= "</div>";
 }
-
 
 }
 $body = $topPart.$bottomPart;
