@@ -4,7 +4,7 @@ require_once "support.php";
 session_start();
 
 if ($_SESSION['user']) {
-    $db_connection = conncetToDB();
+    $db_connection = connectToDB();
     $stmt = $db_connection->prepare("SELECT * FROM applicants WHERE email=?");
     $stmt->bind_param("s", $_SESSION['email']);
     $stmt->execute();
