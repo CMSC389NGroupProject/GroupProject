@@ -15,6 +15,12 @@ $upper = <<<EOBODY
     </script>
 <div>
 <form method="post" action="{$_SERVER['PHP_SELF']}">
+<ul class="nav nav-tabs">
+    <li><a href="index.html"><span class="glyphicon glyphicon-home"></span></a></li>
+ </ul>
+
+<div id = 'cent'>
+
     <h1>Register New Account</h1>
     <strong>Name: </strong>
     <input type="text" name="name" required><br><br>
@@ -36,6 +42,7 @@ $upper = <<<EOBODY
     <span id="message"></span><br><br>
     <input type="submit" name="submit"  value="Register"><br><br>
     <button onclick="location.href='index.html'">Return to main menu</button><br />
+    </div>
 </form>
 <div/>
 EOBODY;

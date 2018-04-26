@@ -4,14 +4,20 @@ require("support.php");
 $topPart = <<<EOBODY
 <div>
 <form action="{$_SERVER['PHP_SELF']}" method="post" class = "form-horizontal">
+<ul class="nav nav-tabs">
+	<li><a href="index.html"><span class="glyphicon glyphicon-home"></span></a></li>
+ </ul>
+
+<div id = 'cent'>
 <h1>Log into Our System</h1>
 <strong>Email: </strong>
-<input type="text" name="email" class="form-control" required/></br></br>
+<input type="text" name="email"  required/></br></br>
 <strong>Password: </strong>
-<input type="password" name="password"  class="form-control" required/></br></br>
+<input type="password" name="password" required/></br></br>
 
-<input type="submit" name="submitInfoButton" class = "form-control" value = "Login"/></br>
+<input type="submit" name="submitInfoButton" value = "Login"/></br>
 </form>
+</div>
 </div>
 EOBODY;
 

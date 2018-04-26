@@ -23,12 +23,9 @@ function generatePage($body, $title="Grades Submission System") {
             <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
             <link rel = "stylesheet" href = "style.css">
     </head>
-            
-    <body id = "cent">
-        <div class="container-fluid">
-            $body
-        </div>
-    </body>
+    
+    $body
+    
 </html>
 EOPAGE;
 
