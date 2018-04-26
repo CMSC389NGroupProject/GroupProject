@@ -3,27 +3,49 @@ require_once "support.php";
 
 session_start();
 
-if ($_SESSION['user']) {
+if ($_SESSION['user'] != null) {
     $db_connection = connectToDB();
-    $stmt = $db_connection->prepare("SELECT * FROM applicants WHERE email=?");
-    $stmt->bind_param("s", $_SESSION['email']);
-    $stmt->execute();
-    $stmt->store_result();
-    $num_rows = $stmt->num_rows;
-    $stmt->bind_result($name, $email, $tel, $gender, $passwordValue);
-    while ($stmt->fetch()) {
-        if ($gender === 'M') {
-            $checkedMale = "checked";
-            $checkedFemale = "";
-        } else {
-            $checkedMale = "";
-            $checkedFemale = "checked";
-        }
-    }
-    $stmt->free_result();
-    $stmt->close();
+
+    $query = "SELECT * FROM users WHERE email='{$_SESSION['user']}'";
+    $result = $db_connection->query($query);
+    if (!$result) {
+		die("Retrieval failed: ". $db_connection->error);
+	} else {
+		/* Number of rows found */
+		$num_rows = $result->num_rows;
+		if ($num_rows === 0) {
+			echo "Empty Table<br>";
+		} else {
+			for ($row_index = 0; $row_index < $num_rows; $row_index++) {
+				$result->data_seek($row_index);
+                $row = $result->fetch_array(MYSQLI_ASSOC);
+                
+                $name = $row['name'];
+                $email = $row['email'];
+                $tel = $row['tel'];
+                $gender = $row['gender'];
+                $passwordValue = $row['password'];
+                
+                if ($gender === 'M') {
+                    $checkedMale = "checked";
+                    $checkedFemale = "";
+                } else {
+                    $checkedMale = "";
+                    $checkedFemale = "checked";
+                }
+			}
+		}
+	}
+	
+	/* Freeing memory */
+	$result->close();
+	
+	/* Closing connection */
     $db_connection->close();
-} 
+
+} else {
+    header ("Location: index.html");
+}
 
 if (isset($_POST['Update'])) {
     $emailValue = trim($_POST['email']);
@@ -52,8 +74,6 @@ if (isset($_POST['Update'])) {
     session_destroy();
 
     $message = "The entry has been updated in the database and the new values are:";
-} else {
-    header ("Location: index.html");
 }
 
 $body = <<<EOBODY
@@ -90,9 +110,9 @@ $body = <<<EOBODY
             </label>
 
             <label style="display: block;">
-                <b>Gender: </b>
-                <input type="radio" name="gender" value="M" $checkedMale> M
-                <input type="radio" name="gender" value="F" $checkedFemale> F
+                <b>Gender: </b> <br>
+                M <input type="radio" name="gender" value="M" $checkedMale>
+                F <input type="radio" name="gender" value="F" $checkedFemale>
             </label>
 
             <label style="display: block;">
