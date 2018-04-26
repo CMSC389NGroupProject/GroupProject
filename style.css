@@ -1,7 +1,7 @@
 #cent {
     position:absolute;
-    top:33%;
-    left:33%;
+    top:10%;
+    left:42%;
     margin-top:-50px; /* this is half the height of your div*/
     margin-left:-100px; /*this is half of width of your div*/
 }
@@ -63,6 +63,17 @@ button {
 
 button:hover {
     opacity:1;
+}
+
+input {
+ background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    opacity: 0.9;
 }
 
 /* Extra styles for the cancel button */
