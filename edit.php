@@ -23,9 +23,7 @@ if ($_SESSION['user']) {
     $stmt->free_result();
     $stmt->close();
     $db_connection->close();
-} 
-
-if (isset($_POST['Update'])) {
+} else if (isset($_POST['Update'])) {
     $emailValue = trim($_POST['email']);
     $nameValue = trim($_POST['name']);
     $telValue = trim($_POST['phone_validation']);

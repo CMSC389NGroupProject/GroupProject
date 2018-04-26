@@ -2,7 +2,6 @@
 require("support.php");
 
 $topPart = <<<EOBODY
-<div>
 <form action="{$_SERVER['PHP_SELF']}" method="post" class = "form-horizontal">
 <ul class="nav nav-tabs">
 	<li><a href="index.html"><span class="glyphicon glyphicon-home"></span></a></li>
@@ -14,11 +13,10 @@ $topPart = <<<EOBODY
 <input type="text" name="email"  required/></br></br>
 <strong>Password: </strong>
 <input type="password" name="password" required/></br></br>
-
 <input type="submit" name="submitInfoButton" value = "Login"/></br>
+</div>
+
 </form>
-</div>
-</div>
 EOBODY;
 
 $bottomPart = "";
@@ -44,6 +42,8 @@ if ($result) {
 		else {
 			session_start();
 			$_SESSION['user'] = $login;
+            $_SESSION['email'] = $login;
+
 			header("location:edit.php");
 		}
 	}
