@@ -15,7 +15,7 @@ $topPart = <<<EOBODY
 <input type="text" name="email"  required/></br></br>
 <strong>Password: </strong>
 <input type="password" name="password" required/></br></br>
-<input type="submit" name="submitInfoButton" value = "Login"/></br>
+<input type="submit" name="submitInfoButton" value = "Login" style="color: white" /></br>
 
 </form>
 EOBODY;

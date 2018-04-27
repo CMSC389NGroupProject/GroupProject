@@ -21,32 +21,106 @@ $upper = <<<EOBODY
 
 </ul>
 
-<div id = 'cent'>
-
-    <h1>Register New Account</h1>
-    <strong>Name: </strong>
-    <input type="text" name="name" required><br><br>
-    <strong>Email: </strong>
-    <input type="email" name="email" required><br><br>
-    <strong>Phone Number: </strong>
-    <input type="text" name="phone_validation" pattern="\([0-9]{3}\)[0-9]{3}[\-][0-9]{4}$" required 
-    title="Please enter in form: (123)456-7890" placeholder="(123)456-7890"><br><br>
-    <strong>Gender: </strong>
-    <select name="gender" size="1" required>
-        <option value="N">Prefer Not Answer</option>
-        <option value="M">Male</option>
-        <option value="F">Female</option>
-    </select><br><br>
-    <strong>Password: </strong>
-    <input type="password" name="pwd" id="pwd" onkeyup="check()" required><br><br>
-    <strong>Verify Password: </strong>
-    <input type="password" name="verifyPwd" id="verifyPwd" onkeyup="check()" required>
-    <span id="message"></span><br><br>
-    <input type="submit" name="submit"  value="Register"><br><br>
-    <button onclick="location.href='index.html'">Return to main menu</button><br />
-    </div>
-</form>
-<div/>
+        <div style="padding-left: 30em; padding-right: 30em">
+            <h1>Register New Account</h1>
+            <strong>Name: </strong>
+            <input type="text" name="name" required><br><br>
+            <strong>Email: </strong>
+            <input type="email" name="email" required><br><br>
+            <strong>Phone Number: </strong>
+            <input type="text" name="phone_validation" pattern="\([0-9]{3}\)[0-9]{3}[\-][0-9]{4}$" required 
+            title="Please enter in form: (123)456-7890" placeholder="(123)456-7890"><br><br>
+            
+            <div class="custom-select" style="width: 200px">
+                <strong>Gender: </strong>
+                <select name="gender" size="1" required >
+                    <option value="N">Prefer Not Answer</option>
+                    <option value="M">Male</option>
+                    <option value="F">Female</option>
+                </select><br><br>
+            </div><br>
+            <strong>Password: </strong>
+            <input type="password" name="pwd" id="pwd" onkeyup="check()" required><br><br>
+            <strong>Verify Password: </strong>
+            <input type="password" name="verifyPwd" id="verifyPwd" onkeyup="check()" required>
+            <span id="message"></span><br><br>
+            <input type="submit" name="submit"  value="Register" style="color: white" ><br><br>
+            <button onclick="location.href='index.html'">Return to main menu</button><br />
+        </div>
+   </form>
+ 
+   <script>
+        var x, i, j, selElmnt, a, b, c;
+        /*look for any elements with the class "custom-select":*/
+        x = document.getElementsByClassName("custom-select");
+        for (i = 0; i < x.length; i++) {
+          selElmnt = x[i].getElementsByTagName("select")[0];
+          /*for each element, create a new DIV that will act as the selected item:*/
+          a = document.createElement("DIV");
+          a.setAttribute("class", "select-selected");
+          a.innerHTML = selElmnt.options[selElmnt.selectedIndex].innerHTML;
+          x[i].appendChild(a);
+          /*for each element, create a new DIV that will contain the option list:*/
+          b = document.createElement("DIV");
+          b.setAttribute("class", "select-items select-hide");
+          for (j = 0; j < selElmnt.length; j++) {
+            /*for each option in the original select element,
+            create a new DIV that will act as an option item:*/
+            c = document.createElement("DIV");
+            c.innerHTML = selElmnt.options[j].innerHTML;
+            c.addEventListener("click", function(e) {
+                /*when an item is clicked, update the original select box,
+                and the selected item:*/
+                var y, i, k, s, h;
+                s = this.parentNode.parentNode.getElementsByTagName("select")[0];
+                h = this.parentNode.previousSibling;
+                for (i = 0; i < s.length; i++) {
+                  if (s.options[i].innerHTML == this.innerHTML) {
+                    s.selectedIndex = i;
+                    h.innerHTML = this.innerHTML;
+                    y = this.parentNode.getElementsByClassName("same-as-selected");
+                    for (k = 0; k < y.length; k++) {
+                      y[k].removeAttribute("class");
+                    }
+                    this.setAttribute("class", "same-as-selected");
+                    break;
+                  }
+                }
+                h.click();
+            });
+            b.appendChild(c);
+          }
+          x[i].appendChild(b);
+          a.addEventListener("click", function(e) {
+              /*when the select box is clicked, close any other select boxes,
+              and open/close the current select box:*/
+              e.stopPropagation();
+              closeAllSelect(this);
+              this.nextSibling.classList.toggle("select-hide");
+              this.classList.toggle("select-arrow-active");
+            });
+        }
+        function closeAllSelect(elmnt) {
+          /*a function that will close all select boxes in the document,
+          except the current select box:*/
+          var x, y, i, arrNo = [];
+          x = document.getElementsByClassName("select-items");
+          y = document.getElementsByClassName("select-selected");
+          for (i = 0; i < y.length; i++) {
+            if (elmnt == y[i]) {
+              arrNo.push(i)
+            } else {
+              y[i].classList.remove("select-arrow-active");
+            }
+          }
+          for (i = 0; i < x.length; i++) {
+            if (arrNo.indexOf(i)) {
+              x[i].classList.add("select-hide");
+            }
+          }
+        }
+        document.addEventListener("click", closeAllSelect);
+   </script>
 EOBODY;
 
 
@@ -63,8 +137,8 @@ if (isset($_POST['submit'])) {
             trim($_POST['name']), trim($_POST['email']), trim($_POST['phone_validation']), trim($_POST['gender']), $hashed);
         $result = mysqli_query($db, $sqlQuery);
         if ($result) {
-            $upper = "<h1>Thank you for register, please go back to main page and login</h1>";
-            $upper .= "<a href='index.html'><button>Return to main menu</button></a>";
+            $upper = "<div style=\"padding-left: 30em; padding-right: 30em\"><h3>Thank you for register, please go back to main page and login</h3>";
+            $upper .= "<a href='index.html'><button>Return to main menu</button></a></div>";
         } else {
             $bot = "<br>Register failed: " . mysqli_error($db) . "<br><br>";
         }
