@@ -23,40 +23,42 @@ EOBODY;
 
 $bottomPart = "";
 
-if (isset($_POST["submitInfoButton"])) {
-		$login = trim($_POST["email"]);
-		$password = trim($_POST["password"]);
-		$db = connectToDB();
-        $sqlQuery = sprintf("select password from users where email='%s'", $login);
-        $result = mysqli_query($db,$sqlQuery);
-
-if ($result) {
-    if (mysqli_num_rows($result) == 0) {
-        $bottomPart .= "<h2>Please Register</h2>";
-    	$bottomPart .="<a href=\"register.php\"><button>Register</button></a>";
-        $bottomPart .="<a href=\"index.html\"><button>Return to main menu</button></a>";
-        $bottomPart .= "</div>";
-
-    }
-    else{
-        $recordArray = mysqli_fetch_array($result, MYSQLI_ASSOC);
-        if (!password_verify($password, $recordArray['password'])) {
-			$bottomPart .= "<strong>Invalid login information provided.</strong><br>";
-            $bottomPart .= "</div>";
-		}
-		else {
-			$_SESSION['user'] = $login;
-            $_SESSION['email'] = $login;
-			header("location:userinterface.php");
-		}
-	}
+if (isset($_COOKIE['login'])){
+    header("location:userInterface.php");
 }else{
-    $bottomPart .= "<h2>Cannot Connect to Database Please Contact Us in Contact</h2>";
-    $bottomPart .="<a href=\"register.php\"><button>Register</button></a>";
-    $bottomPart .="<a href=\"index.html\"><button>Return to main menu</button></a>";
-    $bottomPart .= "</div>";
-}
+    if (isset($_POST["submitInfoButton"])) {
+	        $login = trim($_POST["email"]);
+		    $password = trim($_POST["password"]);
+		    $db = connectToDB();
+            $sqlQuery = sprintf("select password from users where email='%s'", $login);
+            $result = mysqli_query($db,$sqlQuery);
 
+            if ($result) {
+                if (mysqli_num_rows($result) == 0) {
+                $bottomPart .= "<h2>Please Register</h2>";
+        	    $bottomPart .="<a href=\"register.php\"><button>Register</button></a>";
+                $bottomPart .="<a href=\"index.html\"><button>Return to main menu</button></a>";
+                $bottomPart .= "</div>";
+            }
+            else{
+                $recordArray = mysqli_fetch_array($result, MYSQLI_ASSOC);
+                if (!password_verify($password, $recordArray['password'])) {
+    			    $bottomPart .= "<strong>Invalid login information provided.</strong><br>";
+                    $bottomPart .= "</div>";
+    		    }
+    		    else {
+    			    $_SESSION['user'] = $login;
+                    $_SESSION['email'] = $login;
+    			     header("location:userinterface.php");
+    		    }
+    	   }
+        }else{
+            $bottomPart .= "<h2>Cannot Connect to Database Please Contact Us in Contact</h2>";
+            $bottomPart .="<a href=\"register.php\"><button>Register</button></a>";
+            $bottomPart .="<a href=\"index.html\"><button>Return to main menu</button></a>";
+            $bottomPart .= "</div>";
+        }
+    }
 }
 $body = $topPart.$bottomPart;
 $page = generatePage($body, "Login");
