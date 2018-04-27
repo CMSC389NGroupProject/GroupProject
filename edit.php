@@ -3,6 +3,11 @@ require_once "support.php";
 
 session_start();
 
+$message = "";
+$content = "";
+$warning = "";
+$_SESSION['update_result'] = false;
+
 if ($_SESSION['user'] != null) {
     $db_connection = connectToDB();
     
@@ -60,7 +65,7 @@ if (isset($_POST['Update'])) {
     
     
     $stmt = $db_connection->prepare("UPDATE users SET name=?, email=?, tel=?, gender=?, password=? WHERE email=?");
-    $stmt->bind_param("ssssss",$nameValue,$emailValue,$telValue, $newPassword, $gender, $_SESSION['email']);
+    $stmt->bind_param("ssssss",$nameValue,$emailValue,$telValue, $gender, $newPassword, $_SESSION['email']);
     if ($stmt->execute()) {
         $content .= "<p><b>Name: </b>$nameValue</p>";
         $content .= "<p><b>Email: </b>$emailValue</p>";
@@ -148,7 +153,7 @@ if ($_SESSION['update_result']) {
     session_destroy();
 }
 
-$page = generatePage($body);
+$page = generatePage($body, "edit");
 echo $page;
 
 ?>
