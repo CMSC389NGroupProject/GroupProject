@@ -21,7 +21,7 @@ $upper = <<<EOBODY
 
 </ul>
 
-        <div style="padding-left: 30em; padding-right: 30em">
+        <div style="padding-left: 38em; padding-right: 38em">
             <h1>Register New Account</h1>
             <strong>Name: </strong>
             <input type="text" name="name" required><br><br>
