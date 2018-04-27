@@ -17,7 +17,7 @@ $upper = <<<EOBODY
 <form method="post" action="{$_SERVER['PHP_SELF']}">
 <ul class="nav nav-tabs">
     <li><a href="index.html"><span class="glyphicon glyphicon-home"></span></a></li>&nbsp;&nbsp;&nbsp;&nbsp;
-    <li><a href="contact.php">Contact Us</a></li>
+    <li><a href="contact.html">Contact Us</a></li>
 
 </ul>
 
