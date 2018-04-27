@@ -144,7 +144,7 @@ title="Please enter in form: (123)456-7890" value="$tel">
 </div>
 
 <button type="submit" name="Update">Submit Change</button>
-<button type="button"><a href="userInterface.php" style="color: white">Back to Profile</a></button>
+<button type="submit" name="back">Back to Profile</button>
 </form>
 </div>
 
@@ -231,7 +231,9 @@ $content
 $warning
 EOBODY;
 
-
+if (isset($_POST['back'])) {
+    header("location: userinterface.php");
+}
 if ($_SESSION['update_result']) {
     $body = $updated;
     session_unset();
