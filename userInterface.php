@@ -1,3 +1,15 @@
+<!doctype html>
+<html>
+    <head> 
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>$title</title>	
+            <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+            <link rel = "stylesheet" href = "style.css">
+    </head>
+    
+    <body>
+
+
 <?php
 require("support.php");
 
@@ -21,10 +33,15 @@ if ($_SESSION['user'] != null) {
                 $row = $result->fetch_array(MYSQLI_ASSOC);
                 
                 $name = $row['name'];
+
                 $email = $row['email'];
+
                 $tel = $row['tel'];
+
                 $gender = $row['gender'];
+
                 $passwordValue = $row['password'];
+
                 
                 if ($gender === 'M') {
                     $checkedMale = "checked";
@@ -48,19 +65,8 @@ if ($_SESSION['user'] != null) {
 ?>
 
 
-
-<!doctype html>
-<html>
-    <head> 
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title>$title</title>	
-            <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
-            <link rel = "stylesheet" href = "style.css">
-    </head>
-    
-    <body>
-    	
-    	Name: <?php $name ?>
+    	<br>
+    	Name: <?php echo $name ?>
     	<br>
 
 
