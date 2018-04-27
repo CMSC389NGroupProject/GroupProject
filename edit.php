@@ -55,7 +55,10 @@ if (isset($_POST['Update'])) {
     $newPassword = password_hash($_POST['password'], PASSWORD_BCRYPT);
 
     /* Connecting to the database */
-    $db_connection = conncetTODB();
+    $db_connection = connectToDB();
+    
+    
+    
     $stmt = $db_connection->prepare("UPDATE users SET name=?, email=?, tel=?, gender=?, password=? WHERE email=?");
     $stmt->bind_param("ssssss",$nameValue,$emailValue,$telValue, $newPassword, $gender, $_SESSION['email']);
     if ($stmt->execute()) {
@@ -63,6 +66,7 @@ if (isset($_POST['Update'])) {
         $content .= "<p><b>Email: </b>$emailValue</p>";
         $content .= "<p><b>tel: </b>$telValue</p>";
         $content .= "<p><b>Gender: </b>$gender</p>";
+        $_SESSION['update_result'] = true;
     } else {
         $warning = "<p style='color: red'> Fail to update this user. Please try again with correct information</p>";
     }
@@ -70,10 +74,8 @@ if (isset($_POST['Update'])) {
     $stmt->close();
     $db_connection->close();
 
-    session_unset();
-    session_destroy();
-
     $message = "The entry has been updated in the database and the new values are:";
+
 }
 
 $body = <<<EOBODY
@@ -138,6 +140,13 @@ $updated = <<<EOBODY
     </form>
 $warning
 EOBODY;
+
+
+if ($_SESSION['update_result']) {
+    $body = $updated;
+    session_unset();
+    session_destroy();
+}
 
 $page = generatePage($body);
 echo $page;
