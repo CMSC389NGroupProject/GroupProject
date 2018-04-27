@@ -15,15 +15,43 @@
 }
 
 
+#cent2 {
+    position:absolute;
+    top:20%;
+    left:50%;
+    margin-top:-50px; /* this is half the height of your div*/
+    margin-left:-100px; /*this is half of width of your div*/
+}
+
+#cent3 {
+    position:absolute;
+    top:80%;    
+    left:48%;
+    margin-top:-50px; /* this is half the height of your div*/
+    margin-left:-100px; /*this is half of width of your div*/
+}
 
 #rectangle{
-    width:500px;
+    width:500;
     height:100px;
-
 }
 
 img {
-    border-radius: 20%;
+    border-radius: 0%;
+}
+
+
+
+.title {
+  color: grey;
+  font-size: 18px;
+}
+
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    max-width: 300px;
+    margin: auto;
+    text-align: center;
 }
 
 div {
@@ -63,6 +91,7 @@ button {
     width: 100%;
     opacity: 0.9;
 }
+
 
 button:hover {
     opacity:1;
@@ -141,7 +170,7 @@ hr {
     display: none; /*hide original SELECT element:*/
 }
 .select-selected {
-    background-color: #4CAF50;
+    background-color: #f1f1f1;
 }
 /*style the arrow inside the select element:*/
 .select-selected:after {
@@ -161,7 +190,7 @@ hr {
 }
 /*style the items (options), including the selected item:*/
 .select-items div,.select-selected {
-    color: #ffffff;
+    color: black;
     padding: 8px 16px;
     border: 1px solid transparent;
     border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
@@ -171,7 +200,7 @@ hr {
 /*style items (options):*/
 .select-items {
     position: absolute;
-    background-color: #4CAF50;
+    background-color: #f1f1f1;
     top: 100%;
     left: 0;
     right: 0;

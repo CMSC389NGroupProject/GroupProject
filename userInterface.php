@@ -73,6 +73,7 @@ if ($_SESSION['user'] != null) {
 ?>
 
 <div style="padding: 30em;padding-top: 10px">
+
     <div class="card" style="padding: 15px">
         
         <img src="img_avatar.png" alt="Avatar" style="width:100%">
@@ -80,15 +81,35 @@ if ($_SESSION['user'] != null) {
             <h3 style="color:blue;text-align:center;"><?php echo $name ?></h3>
             <p class="title">Email: <?php echo $email ?></p>
             <p class="title">Tel: <?php echo $tel ?></p>
-            <p class="title">Gender: <?php echo $gender ?></p>
+            <p class="title">Gender: <?php
+                if ($gender === "N") {
+                    echo "Prefer Not Answer";
+                } else {
+                    echo $gender;
+                 }?></p>
 
     </div>
+
+<!--     <div class="row">
+        <div class="column">
+            <div class="card" >
+                <img src="img_avatar.png" alt="Avatar" style="width:100%" class="cent4">
+                <div class="container">
+                    <h2><?php echo $name ?></h2>
+                    <p class="title">Email: <?php echo $email ?></p>
+                    <p class="title">Tel: <?php echo $tel ?></p>
+                    <p class="title">Gender: <?php echo $gender ?></p>
+                </div>
+            </div>
+    </div> -->
 
     <div>
         <br>
         <button type="submit" onclick="location.href ='edit.php';">update your profile</button>
-        <button type="submit" onclick="location.href ='group.php';">Calendar</button>
+        <button type="submit" onclick="location.href ='group.html';">Calendar</button>
     </div>
+
+
 </div>
 
 
