@@ -120,6 +120,7 @@ $upper = <<<EOBODY
           }
         }
         document.addEventListener("click", closeAllSelect);
+        
    </script>
 EOBODY;
 
@@ -127,7 +128,9 @@ EOBODY;
 $bot="";
 if (isset($_POST['submit'])) {
     if ($_POST['pwd'] !== $_POST['verifyPwd']) {
-        $bot = "<strong>Password does not match</strong>";
+        $upper = "<div style=\"padding-left: 30em; padding-right: 30em\"><h3 style='text-align: center;'>Password Does Not Match</h3>";
+        $upper .= "<script>function goBack() {window.history.back();}</script>
+                <button onclick='goBack()'>Go Back</button>";
     } else {
         $table = "users";
         $hashed = password_hash(trim($_POST["pwd"]), PASSWORD_DEFAULT);
@@ -140,7 +143,9 @@ if (isset($_POST['submit'])) {
             $upper = "<div style=\"padding-left: 30em; padding-right: 30em\"><h3>Thank you for register, please go back to main page and login</h3>";
             $upper .= "<a href='index.html'><button>Return to main menu</button></a></div>";
         } else {
-            $bot = "<br>Register failed: " . mysqli_error($db) . "<br><br>";
+            $upper = "<div style=\"padding-left: 30em; padding-right: 30em\"><h3 style='text-align: center'>Email has already been used</h3>";
+            $upper .= "<script>function goBack() {window.history.back();}</script>
+                <button onclick='goBack()'>Go Back</button>";
         }
     }
 }
