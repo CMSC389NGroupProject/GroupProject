@@ -9,6 +9,15 @@
     
     <body>
 
+        <nav class="navbar navbar-default">
+        <ul class="nav nav-tabs">
+<!--             <li><a class="navbar-header" style="font-size:15px">Scheduling System</a></li> -->
+            <li><a href="index.html"><span class="glyphicon glyphicon-home"></span></a></li>
+<!--             <li><a class="navbar-right">Edit Profile</a></li> -->
+            <li><a href="contact.php">Contact Us</a></li>
+        </ul>
+    </nav>
+
 
 <?php
 require("support.php");
@@ -42,7 +51,6 @@ if ($_SESSION['user'] != null) {
 
                 $passwordValue = $row['password'];
 
-                
                 if ($gender === 'M') {
                     $checkedMale = "checked";
                     $checkedFemale = "";
@@ -65,15 +73,23 @@ if ($_SESSION['user'] != null) {
 ?>
 
 
-    	<br>
-    	Name: <?php echo $name ?>
-    	<br>
+    <div id="rectangle">
+        
+        <img src="img_avatar.png" alt="Avatar" style="width:200px">
+        <br>
+            Name: <?php echo $name ?>
+        <br>
+
+    </div>
+
+    
+
+
+
 
 
 
     </body>
-
-
     
 </html>
 
