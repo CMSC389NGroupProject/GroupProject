@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title> Group Project </title>
+    <link href="calendar.png" rel="icon" type="image/x-icon" />
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="style.css" rel="stylesheet"/>
+</head>
+<body onload="main()">
+    <ul class="nav nav-tabs">
+        <li><a href="index.html"><span class="glyphicon glyphicon-home"></span></a></li>&nbsp;&nbsp;&nbsp;&nbsp;
+        <li><a href="contact.html">Contact Us</a></li>
+        
+    </ul>
+    <form id="calendar">
+        <div id = 'cent'>
+            <h1>Input your avaible date</h1>
+            <strong>Name: </strong>
+            <input type="text" name="name" id="name" required/></br></br>
+            <strong>Date: </strong>
+            <input type='date' id="date"><span class="glyphicon glyphicon-calendar"></span>
+            
+            <input type="submit" name="submitDate" id="submitDate" value = "submit Time"></br>
+        </div>
+    </form>
+    
+    <script> 
+        function main() {
+            
+            var timeSlots = localStorage.getItem("timeSlots");
+            if (timeSlots === null) {
+                timeSlots = "<li>Nothing yet</li>"
+            } 
+            document.getElementById("timeSlots").innerHTML = timeSlots;
+            
+            /* Using anonymous function as listener */
+            document.getElementById("submitDate").onclick = function() {
+                var timeSlots = document.getElementById("timeSlots").innerHTML;
+                // alter("time slots is: " + timeSlots);
+                var previousTimeSlots = localStorage.getItem("timeSlots");
+                var name = document.getElementById("name").value;
+                var date = document.getElementById("date").value;
+                localStorage.setItem("timeSlots", previousTimeSlots + "<li>" + name + " " + date + "</li>");
+                // alert("Data saved");
+            };
+
+            document.getElementById("resetDate").onclick = function() {
+                localStorage.clear();
+                // localStorage.setItem("timeSlots") = null;
+            }
+        }
+    </script>
+    
+    <h2>Avaiable Date Slots</h2>
+    <ol id="timeSlots"></ol>
+
+    <form id="reset">
+        <input style="width:30%;" type="submit" name="resetDate" id="resetDate" value="Reset Date Slots">
+    </form>
+</body>
+</html>
