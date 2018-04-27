@@ -42,12 +42,16 @@ if ($_SESSION['user'] != null) {
 	
 	/* Closing connection */
     $db_connection->close();
+<<<<<<< HEAD
+} else if (isset($_POST['Update'])) {
+=======
 
 } else {
     header ("Location: index.html");
 }
 
 if (isset($_POST['Update'])) {
+>>>>>>> cf11b478746dd5237c889d4244fef87f0da5e40a
     $emailValue = trim($_POST['email']);
     $nameValue = trim($_POST['name']);
     $telValue = trim($_POST['phone_validation']);
