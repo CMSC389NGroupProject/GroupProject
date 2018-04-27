@@ -59,7 +59,14 @@ if ($_SESSION['user'] != null) {
     </head>
     
     <body>
-    	
+    <nav class="navbar navbar-default">
+        <ul class="nav nav-tabs">
+            <li><a class="navbar-header" style="font-size:15px">Scheduling System</a></li>
+            <li><a href="index.html"><span class="glyphicon glyphicon-home"></span></a></li>
+            <li><a href="contact.php">Contact Us</a></li>
+            <li><a class="navbar-right">Edit Profile</a></li>
+        </ul>
+    </nav>
     	Name: <?php $name ?>
     	<br>
 
