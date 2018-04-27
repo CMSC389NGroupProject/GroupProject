@@ -139,7 +139,7 @@ hr {
     display: none; /*hide original SELECT element:*/
 }
 .select-selected {
-    background-color: #4CAF50;
+    background-color: #f1f1f1;
 }
 /*style the arrow inside the select element:*/
 .select-selected:after {
@@ -159,7 +159,7 @@ hr {
 }
 /*style the items (options), including the selected item:*/
 .select-items div,.select-selected {
-    color: #ffffff;
+    color: grey;
     padding: 8px 16px;
     border: 1px solid transparent;
     border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
@@ -169,7 +169,7 @@ hr {
 /*style items (options):*/
 .select-items {
     position: absolute;
-    background-color: #4CAF50;
+    background-color: #f1f1f1;
     top: 100%;
     left: 0;
     right: 0;
