@@ -81,7 +81,12 @@ if ($_SESSION['user'] != null) {
             <h3 style="color:blue;text-align:center;"><?php echo $name ?></h3>
             <p class="title">Email: <?php echo $email ?></p>
             <p class="title">Tel: <?php echo $tel ?></p>
-            <p class="title">Gender: <?php echo $gender ?></p>
+            <p class="title">Gender: <?php
+                if ($gender === "N") {
+                    echo "Prefer Not Answer";
+                } else {
+                    echo $gender;
+                 }?></p>
 
     </div>
 

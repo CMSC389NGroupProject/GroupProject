@@ -105,6 +105,7 @@ var check = function() {
 <div style="padding-left: 38em; padding-right: 38em">
 <form action="{$_SERVER["PHP_SELF"]}" method="post" id="form">
 <div class="form-group">
+<h2>Edit Profile</h2>
 <label style="display: block;">
 <b>Name: </b> 
 <input type="text" name="name" value="$name" required><br>
