@@ -72,10 +72,10 @@ if ($_SESSION['user'] != null) {
 }
 ?>
 
-
-    <div id="cent2" class="card">
+<div style="padding: 30em;padding-top: 10px">
+    <div class="card" style="padding: 15px">
         
-        <img src="img_avatar.png" alt="Avatar" style="width:200px">
+        <img src="img_avatar.png" alt="Avatar" style="width:100%">
         <br>
             <h3 style="color:blue;text-align:center;"><?php echo $name ?></h3>
             <p class="title">Email: <?php echo $email ?></p>
@@ -84,11 +84,12 @@ if ($_SESSION['user'] != null) {
 
     </div>
 
-    <div id="cent3">
+    <div>
+        <br>
         <button type="submit" onclick="location.href ='edit.php';">update your profile</button>
         <button type="submit" onclick="location.href ='group.php';">Calendar</button>
     </div>
-
+</div>
 
 
     </body>
