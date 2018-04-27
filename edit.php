@@ -145,6 +145,8 @@ title="Please enter in form: (123)456-7890" value="$tel">
 </div>
 
 <button type="submit" name="Update">Submit Change</button>
+</form>
+<form method="post">
 <button type="submit" name="back">Back to Profile</button>
 </form>
 </div>
@@ -234,6 +236,9 @@ EOBODY;
 
 if (isset($_POST['back'])) {
     header("location: userinterface.php");
+}
+if ($_POST['email'] !== $email) {
+    
 }
 if ($_SESSION['update_result']) {
     $body = $updated;
