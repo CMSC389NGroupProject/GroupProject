@@ -97,7 +97,7 @@ var check = function() {
     }
 }
 </script>
-
+<div style="padding-left: 38em; padding-right: 38em">
 <form action="{$_SERVER["PHP_SELF"]}" method="post" id="form">
 <div class="form-group">
 <label style="display: block;">
@@ -111,15 +111,15 @@ var check = function() {
 </label>
 
 <label style="display: block;">
-<b>Email: </b> 
+<b>Phone number: </b> 
 <input type="text" name="phone_validation" pattern="\([0-9]{3}\)[0-9]{3}[\-][0-9]{4}$" required
-title="Please enter in form: (123)456-7890" class="form-control" value="$tel">
+title="Please enter in form: (123)456-7890" value="$tel">
 </label>
 
 <label style="display: block;">
-<b>Gender: </b> <br>
-M <input type="radio" name="gender" value="M" $checkedMale>
-F <input type="radio" name="gender" value="F" $checkedFemale>
+<b>Gender: </b>
+M <input type="radio" name="gender" value="M" style="text-align: left" $checkedMale>
+F <input type="radio" name="gender" value="F" style="text-align: left" $checkedFemale>
 </label>
 
 <label style="display: block;">
@@ -136,6 +136,7 @@ F <input type="radio" name="gender" value="F" $checkedFemale>
 
 <button type="submit" name="Update">Submit Change</button>
 </form>
+</div>
 EOBODY;
 
 $updated = <<<EOBODY
