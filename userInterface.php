@@ -87,7 +87,7 @@ if ($_SESSION['user'] != null) {
     <div>
         <br>
         <button type="submit" onclick="location.href ='edit.php';">update your profile</button>
-        <button type="submit" onclick="location.href ='group.php';">Calendar</button>
+        <button type="submit" onclick="location.href ='group.html';">Calendar</button>
     </div>
 </div>
 
