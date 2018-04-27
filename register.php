@@ -71,4 +71,4 @@ if (isset($_POST['submit'])) {
     }
 }
 
-echo generatePage($upper.$bot);
+echo generatePage($upper.$bot, "Register");
