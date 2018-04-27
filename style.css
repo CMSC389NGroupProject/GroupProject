@@ -8,8 +8,8 @@
 
 #cent1 {
     position:absolute;
-    top:50%;
-    left:50%;
+    top:25%;
+    left:25%;
     margin-top:-50px; /* this is half the height of your div*/
     margin-left:-100px; /*this is half of width of your div*/
 }
@@ -32,9 +32,8 @@
 }
 
 #rectangle{
-    width:200px;
+    width:500;
     height:100px;
-    background:blue;
 }
 
 img {
