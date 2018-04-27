@@ -20,7 +20,22 @@ $topPart = <<<EOBODY
 </form>
 EOBODY;
 
+$body = <<<EBODY
+    <br>
+    <strong>No such user please register</strong>
+    <form method="get">
+    <button type="submit" name="toRegister">Register</button><br />
+    <button type="submit" name="returnMain">Return to Main</button>
+</div>
+EBODY;
+
 $bottomPart = "";
+if(isset($_GET["toRegister"])){
+    header("location:register.php");
+}
+if (isset($_GET['returnMain'])){
+    header("location:index.html");
+}
 
 if (isset($_POST["submitInfoButton"])) {
 		$login = trim($_POST["email"]);
@@ -31,11 +46,7 @@ if (isset($_POST["submitInfoButton"])) {
 
 if ($result) {
     if (mysqli_num_rows($result) == 0) {
-        $bottomPart .= "<h2>No Such User please register</h2>";
-    	$bottomPart .="<a href=\"register.php\"><button>Register</button></a>";
-        $bottomPart .="<a href=\"index.html\"><button>Return to Home</button></a>";
-        $bottomPart .= "</div>";
-
+    	$bottomPart = $body;
     }
     else{
         $recordArray = mysqli_fetch_array($result, MYSQLI_ASSOC);
@@ -47,7 +58,7 @@ if ($result) {
 			session_start();
 			$_SESSION['user'] = $login;
             $_SESSION['email'] = $login;
-			header("location:userinterface.php");
+			header("location:userInterface.php");
 		}
 	}
 }else{
