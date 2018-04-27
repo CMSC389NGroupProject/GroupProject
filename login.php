@@ -1,6 +1,7 @@
 <?php
 require("support.php");
 
+
 $topPart = <<<EOBODY
 <form action="{$_SERVER['PHP_SELF']}" method="post" class = "form-horizontal">
 <ul class="nav nav-tabs">
@@ -12,9 +13,9 @@ $topPart = <<<EOBODY
 <div id = 'cent'>
 <h1>Log into Our System</h1>
 <strong>Email: </strong>
-<input type="text" name="email"  required/></br></br>
+<input type="text" name="email"  /></br></br>
 <strong>Password: </strong>
-<input type="password" name="password" required/></br></br>
+<input type="password" name="password" /></br></br>
 <input type="submit" name="submitInfoButton" value = "Login" style="color: white" /></br>
 
 </form>
@@ -40,11 +41,10 @@ if ($result) {
     else{
         $recordArray = mysqli_fetch_array($result, MYSQLI_ASSOC);
         if (!password_verify($password, $recordArray['password'])) {
-			$bottomPart .= "<strong><h1>Invalid login information provided.</strong><h1><br />";
+			$bottomPart .= "<strong>Invalid login information provided.</strong><br>";
             $bottomPart .= "</div>";
 		}
 		else {
-			session_start();
 			$_SESSION['user'] = $login;
             $_SESSION['email'] = $login;
 			header("location:userinterface.php");
