@@ -31,9 +31,9 @@ if (isset($_POST["submitInfoButton"])) {
 
 if ($result) {
     if (mysqli_num_rows($result) == 0) {
-        $bottomPart .= "<h2>Please Register</h2>";
+        $bottomPart .= "<h2>No Such User please register</h2>";
     	$bottomPart .="<a href=\"register.php\"><button>Register</button></a>";
-        $bottomPart .="<a href=\"index.html\"><button>Return to main menu</button></a>";
+        $bottomPart .="<a href=\"index.html\"><button>Return to Home</button></a>";
         $bottomPart .= "</div>";
 
     }
