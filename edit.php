@@ -6,7 +6,7 @@ session_start();
 $message = "";
 $content = "";
 $warning = "";
-$update_result = "";
+$_SESSION['update_result'] = false;
 
 if ($_SESSION['user'] != null) {
     $db_connection = connectToDB();
@@ -153,7 +153,7 @@ if ($_SESSION['update_result']) {
     session_destroy();
 }
 
-$page = generatePage($body);
+$page = generatePage($body, "edit");
 echo $page;
 
 ?>
