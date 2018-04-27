@@ -49,7 +49,7 @@ if (isset($_COOKIE['login'])){
     		    else {
     			    $_SESSION['user'] = $login;
                     $_SESSION['email'] = $login;
-    			     header("location:userinterface.php");
+    			     header("location:userInterface.php");
     		    }
     	   }
         }else{
