@@ -97,6 +97,11 @@ var check = function() {
     }
 }
 </script>
+<ul class="nav nav-tabs">
+    <li><a href="index.html"><span class="glyphicon glyphicon-home"></span></a></li>&nbsp;&nbsp;&nbsp;&nbsp;
+    <li><a href="contact.html">Contact Us</a></li>
+
+</ul>
 <div style="padding-left: 38em; padding-right: 38em">
 <form action="{$_SERVER["PHP_SELF"]}" method="post" id="form">
 <div class="form-group">
