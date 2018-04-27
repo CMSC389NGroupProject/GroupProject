@@ -14,7 +14,7 @@
 <!--             <li><a class="navbar-header" style="font-size:15px">Scheduling System</a></li> -->
             <li><a href="index.html"><span class="glyphicon glyphicon-home"></span></a></li>
 <!--             <li><a class="navbar-right">Edit Profile</a></li> -->
-            <li><a href="contact.php">Contact Us</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
         </ul>
     </nav>
 
@@ -73,19 +73,21 @@ if ($_SESSION['user'] != null) {
 ?>
 
 
-    <div id="rectangle">
+    <div id="cent2" class="card">
         
         <img src="img_avatar.png" alt="Avatar" style="width:200px">
         <br>
-            Name: <?php echo $name ?>
-        <br>
+            <h3 style="color:blue;text-align:center;"><?php echo $name ?></h3>
+            <p class="title">Email: <?php echo $email ?></p>
+            <p class="title">Tel: <?php echo $tel ?></p>
+            <p class="title">Gender: <?php echo $gender ?></p>
 
     </div>
 
-    
-
-
-
+    <div id="cent3">
+        <button type="submit" onclick="location.href ='edit.php';">update your profile</button>
+        <button type="submit" onclick="location.href ='group.php';">Calendar</button>
+    </div>
 
 
 
