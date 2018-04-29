@@ -2,7 +2,8 @@
 <html>
     <head> 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title>$title</title>	
+        <title>User Interface</title>
+            <link href="calendar.png" rel="icon" type="image/x-icon" />
             <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
             <link rel = "stylesheet" href = "style.css">
 
@@ -12,10 +13,10 @@
 
         <nav class="navbar navbar-default">
         <ul class="nav nav-tabs">
-<!--             <li><a class="navbar-header" style="font-size:15px">Scheduling System</a></li> -->
             <li><a href="index.html"><span class="glyphicon glyphicon-home"></span></a></li>
-<!--             <li><a class="navbar-right">Edit Profile</a></li> -->
+            <li><a href="logout.php">Log Out</a></li>
             <li><a href="contact.html">Contact Us</a></li>
+
         </ul>
     </nav>
 
@@ -25,7 +26,7 @@ require("support.php");
 
 session_start();
 
-if ($_SESSION['email'] != null) {
+if (isset($_COOKIE['login'])) {
     $db_connection = connectToDB();
 
     $query = "SELECT * FROM users WHERE email='{$_SESSION['email']}'";
@@ -69,7 +70,7 @@ if ($_SESSION['email'] != null) {
 	/* Closing connection */
     $db_connection->close();
 }else {
-    header ("Location: index.html");
+    header ("Location: login.php");
 }
 ?>
 

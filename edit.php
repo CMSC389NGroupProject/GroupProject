@@ -8,7 +8,7 @@ $content = "";
 $warning = "";
 $_SESSION['update_result'] = false;
 
-if ($_SESSION['email'] != null) {
+if (isset($_COOKIE['login'])) {
     $db_connection = connectToDB();
     
     $query = "SELECT * FROM users WHERE email='{$_SESSION['email']}'";
@@ -48,7 +48,7 @@ if ($_SESSION['email'] != null) {
 	/* Closing connection */
     $db_connection->close();
 } else {
-    header ("Location: index.html");
+    header ("Location: login.php");
 }
 
 if (isset($_POST['Update'])) {
@@ -80,7 +80,7 @@ if (isset($_POST['Update'])) {
     $db_connection->close();
     
     $message = "The entry has been updated in the database and the new values are:";
-    
+
 }
 
 $body = <<<EOBODY
@@ -98,7 +98,8 @@ var check = function() {
 }
 </script>
 <ul class="nav nav-tabs">
-    <li><a href="index.html"><span class="glyphicon glyphicon-home"></span></a></li>&nbsp;&nbsp;&nbsp;&nbsp;
+    <li><a href="index.html"><span class="glyphicon glyphicon-home"></span></a></li>
+    <li><a href="logout.php">Log Out</a></li>
     <li><a href="contact.html">Contact Us</a></li>
 
 </ul>
@@ -229,6 +230,7 @@ EOBODY;
 $updated = <<<EOBODY
 <ul class="nav nav-tabs">
 	<li><a href="index.html"><span class="glyphicon glyphicon-home"></span></a></li>&nbsp;&nbsp;&nbsp;&nbsp;
+    <li><a href="logout.php">Log Out</a></li>&nbsp;&nbsp;&nbsp;&nbsp;
     <li><a href="contact.html">Contact Us</a></li>
 </ul>
 <h2>$message</h2>
@@ -244,8 +246,6 @@ if (isset($_POST['back'])) {
 
 if ($_SESSION['update_result']) {
     $body = $updated;
-    session_unset();
-    session_destroy();
 }
 
 $page = generatePage($body, "edit");
