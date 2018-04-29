@@ -69,6 +69,15 @@ input[type=text], input[type=password], input[type=email]{
     background: #f1f1f1;
 }
 
+input[type=file]{
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    display: inline-block;
+    border: none;
+    background: white;
+}
+
 /* Add a background color when the inputs get focus */
 input[type=text]:focus, input[type=password]:focus {
     background-color: #ddd;
@@ -79,6 +88,7 @@ input[type=email]:focus, input[type=password]:focus {
     background-color: #ddd;
     outline: none;
 }
+
 
 /* Set a style for all buttons */
 button {
