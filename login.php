@@ -54,9 +54,13 @@ else {
             } else {
                 $recordArray = mysqli_fetch_array($result, MYSQLI_ASSOC);
                 if (!password_verify($password, $recordArray['password'])) {
-                    $bottomPart .= "<strong><h1>Invalid login information provided.</strong><h1><br />";
+                    $bottomPart .= "<strong>Invalid login information provided.</strong><br />";
                     $bottomPart .= "</div>";
                 } else {
+                    if (!isset($_COOKIE['login'])){
+                        $name = "login";
+                        setcookie($name,$login);
+                    }
                     session_start();
                     $_SESSION['email'] = $login;
                     header("location:userInterface.php");
