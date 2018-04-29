@@ -34,6 +34,7 @@ if (isset($_POST['submitDate'])) {
     /* Freeing memory */
     $result->close();
 
+    //Find common avaliable time
     $query = "CREATE TEMPORARY TABLE uniqueName 
     select DISTINCT(date), name
     from timeslots
@@ -153,9 +154,13 @@ $body = <<<EOBODY
             
             /* Using anonymous function as listener */
             document.getElementById("submitDate").onclick = function() {
+                if (localStorage.getItem("timeSlots") != null) {
+                    var previousTimeSlots = localStorage.getItem("timeSlots");
+                } else {
+                    var previousTimeSlots = "";
+                }
                 var timeSlots = document.getElementById("timeSlots").innerHTML;
                 // alter("time slots is: " + timeSlots);
-                var previousTimeSlots = localStorage.getItem("timeSlots");
                 var name = document.getElementById("name").value;
                 var date = document.getElementById("date").value;
                 localStorage.setItem("timeSlots", previousTimeSlots + "<li>" + name + " " + date + "</li>");
