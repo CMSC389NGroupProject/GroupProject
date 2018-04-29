@@ -1,5 +1,4 @@
 <?php
-session_start();
-unset($_COOKIE['login']);
+setcookie("login","",time()-3600);
 header("Location: index.html");
 ?>
