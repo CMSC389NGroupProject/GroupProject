@@ -1,15 +1,11 @@
 <?php
 require("support.php");
-session_start();
-
-$_SESSION['email'] = null;
 
 $topPart = <<<EOBODY
 <form action="{$_SERVER['PHP_SELF']}" method="post" class = "form-horizontal">
 <ul class="nav nav-tabs">
 	<li><a href="index.html"><span class="glyphicon glyphicon-home"></span></a></li>&nbsp;&nbsp;&nbsp;&nbsp;
     <li><a href="contact.html">Contact Us</a></li>
-
 </ul>
 
 <div id = 'cent'>
@@ -31,17 +27,20 @@ $body = <<<EBODY
     <button type="submit" name="returnMain">Return to Main</button>
 </div>
 EBODY;
-if ($_SESSION['email'] != null){
-    header("location:userInterface.php");
-}else{
-    $bottomPart = "";
-    if(isset($_GET["toRegister"])){
-        header("location:register.php");
-    }
-    if (isset($_GET['returnMain'])){
-        header("location:index.html");
-    }
+$bottomPart = "";
 
+
+if(isset($_GET["toRegister"])){
+    header("location:register.php");
+}
+if (isset($_GET['returnMain'])){
+    header("location:index.html");
+}
+
+if (isset($_COOKIE['login'])){
+    header("location:userInterface.php");
+}
+else {
     if (isset($_POST["submitInfoButton"])) {
         $login = trim($_POST["email"]);
         $password = trim($_POST["password"]);
@@ -58,6 +57,7 @@ if ($_SESSION['email'] != null){
                     $bottomPart .= "<strong><h1>Invalid login information provided.</strong><h1><br />";
                     $bottomPart .= "</div>";
                 } else {
+                    session_start();
                     $_SESSION['email'] = $login;
                     header("location:userInterface.php");
                 }
