@@ -12,9 +12,20 @@ $upper = <<<EOBODY
                 document.getElementById('message').innerHTML = 'Not Matching';
             }
         }
+        document.getElementById('image').onchange = uploadOnChange;
+        function uploadOnChange() {
+            var filename = this.value;
+            var lastIndex = filename.lastIndexOf("\\");
+            if (lastIndex >= 0) {
+                filename = filename.substring(lastIndex + 1);
+            }
+            document.getElementById('filename').value = filename;
+}
+
+
     </script>
 <div>
-<form method="post" action="{$_SERVER['PHP_SELF']}">
+<form method="post" action="{$_SERVER['PHP_SELF']}" enctype="multipart/form-data">
 <ul class="nav nav-tabs">
     <li><a href="index.html"><span class="glyphicon glyphicon-home"></span></a></li>&nbsp;&nbsp;&nbsp;&nbsp;
     <li><a href="contact.html">Contact Us</a></li>
@@ -30,6 +41,7 @@ $upper = <<<EOBODY
             <strong>Phone Number: </strong>
             <input type="text" name="phone_validation" pattern="\([0-9]{3}\)[0-9]{3}[\-][0-9]{4}$" required 
             title="Please enter in form: (123)456-7890" placeholder="(123)456-7890"><br><br>
+
             
             <div class="custom-select" style="width: 200px">
                 <strong>Gender: </strong>
@@ -39,11 +51,20 @@ $upper = <<<EOBODY
                     <option value="F">Female</option>
                 </select><br><br>
             </div><br>
+
+
             <strong>Password: </strong>
             <input type="password" name="pwd" id="pwd" onkeyup="check()" required><br><br>
             <strong>Verify Password: </strong>
             <input type="password" name="verifyPwd" id="verifyPwd" onkeyup="check()" required>
             <span id="message"></span><br><br>
+
+
+            <strong>Image to upload: </strong>
+            <input type="file" name="image" id="image" accept="image/*">
+            <input type="hidden" name="MAX_FILE_SIZE" value="300000" >
+
+
             <input type="submit" name="submit"  value="Register" style="color: white" ><br><br>
             <button onclick="location.href='index.html'">Return to main menu</button><br />
         </div>
@@ -136,9 +157,19 @@ if (isset($_POST['submit'])) {
         $hashed = password_hash(trim($_POST["pwd"]), PASSWORD_DEFAULT);
         $db = connectToDB();
 
-        $sqlQuery = sprintf("insert into $table (name,email,tel,gender,password) values ('%s','%s','%s','%s','%s')",
-            trim($_POST['name']), trim($_POST['email']), trim($_POST['phone_validation']), trim($_POST['gender']), $hashed);
+        $image_name = $_FILES['image']['name'];
+        $Name = trim($_POST['name']);
+        $Email = trim($_POST['email']);
+        $Phone = trim($_POST['phone_validation']);
+        $Gender = trim($_POST['gender']);
+
+        // $sqlQuery = sprintf("insert into $table (name,email,tel,gender,password) values ('%s','%s','%s','%s','%s')",
+        //     trim($_POST['name']), trim($_POST['email']), trim($_POST['phone_validation']), trim($_POST['gender']), $hashed);
+
+        $sqlQuery = "insert into $table values($Name, $Email, $Phone, $Gender, $hashed, LOAD_FILE('image/'$image_name)";
+
         $result = mysqli_query($db, $sqlQuery);
+
         if ($result) {
             $upper = "<div style=\"padding-left: 30em; padding-right: 30em\"><h3>Thank you for register, please go back to main page and login</h3>";
             $upper .= "<a href='index.html'><button>Return to main menu</button></a></div>";

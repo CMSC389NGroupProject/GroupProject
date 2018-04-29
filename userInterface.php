@@ -6,6 +6,7 @@
             <link href="calendar.png" rel="icon" type="image/x-icon" />
             <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
             <link rel = "stylesheet" href = "style.css">
+
     </head>
     
     <body>
@@ -106,8 +107,9 @@ if (isset($_COOKIE['login'])) {
 
     <div>
         <br>
+
         <button type="submit" onclick="location.href ='edit.php';">update your profile</button>
-        <button type="submit" onclick="location.href ='group.html';">Calendar</button>
+        <button type="submit" onclick="location.href ='group.php';">Calendar</button>
     </div>
 
 
