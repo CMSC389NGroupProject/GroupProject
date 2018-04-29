@@ -54,7 +54,7 @@ else {
             } else {
                 $recordArray = mysqli_fetch_array($result, MYSQLI_ASSOC);
                 if (!password_verify($password, $recordArray['password'])) {
-                    $bottomPart .= "<strong><h1>Invalid login information provided.</strong><h1><br />";
+                    $bottomPart .= "<strong>Invalid login information provided.</strong><br />";
                     $bottomPart .= "</div>";
                 } else {
                     session_start();
