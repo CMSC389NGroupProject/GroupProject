@@ -8,7 +8,7 @@ $content = "";
 $warning = "";
 $_SESSION['update_result'] = false;
 
-if ($_SESSION['user'] != null) {
+if ($_SESSION['email'] != null) {
     $db_connection = connectToDB();
     
     $query = "SELECT * FROM users WHERE email='{$_SESSION['user']}'";
@@ -227,6 +227,10 @@ title="Please enter in form: (123)456-7890" value="$tel">
 EOBODY;
 
 $updated = <<<EOBODY
+<ul class="nav nav-tabs">
+	<li><a href="index.html"><span class="glyphicon glyphicon-home"></span></a></li>&nbsp;&nbsp;&nbsp;&nbsp;
+    <li><a href="contact.html">Contact Us</a></li>
+</ul>
 <h2>$message</h2>
 <form action="{$_SERVER["PHP_SELF"]}" method="post">
 $content
@@ -237,9 +241,7 @@ EOBODY;
 if (isset($_POST['back'])) {
     header("location: userinterface.php");
 }
-if ($_POST['email'] !== $email) {
-    
-}
+
 if ($_SESSION['update_result']) {
     $body = $updated;
     session_unset();
