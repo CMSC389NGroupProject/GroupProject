@@ -11,7 +11,7 @@ $_SESSION['update_result'] = false;
 if ($_SESSION['email'] != null) {
     $db_connection = connectToDB();
     
-    $query = "SELECT * FROM users WHERE email='{$_SESSION['user']}'";
+    $query = "SELECT * FROM users WHERE email='{$_SESSION['email']}'";
     $result = $db_connection->query($query);
     if (!$result) {
 		die("Retrieval failed: ". $db_connection->error);
