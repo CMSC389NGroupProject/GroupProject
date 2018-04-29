@@ -15,6 +15,7 @@ $topPart = <<<EOBODY
 <strong>Password: </strong>
 <input type="password" name="password" /></br></br>
 <input type="submit" name="submitInfoButton" value = "Login" style="color: white" /></br>
+<button type="submit" name="register">Register</button>
 
 </form>
 EOBODY;
@@ -41,6 +42,9 @@ if (isset($_COOKIE['login'])){
     header("location:userInterface.php");
 }
 else {
+    if(isset($_POST["register"])){
+        header("location:register.php");
+    }
     if (isset($_POST["submitInfoButton"])) {
         $login = trim($_POST["email"]);
         $password = trim($_POST["password"]);
