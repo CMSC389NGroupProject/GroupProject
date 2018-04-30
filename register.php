@@ -157,7 +157,10 @@ if (isset($_POST['submit'])) {
         $hashed = password_hash(trim($_POST["pwd"]), PASSWORD_DEFAULT);
         $db = connectToDB();
 
+
         $image_name = $_FILES['image']['name'];
+
+
         $Name = trim($_POST['name']);
         $Email = trim($_POST['email']);
         $Phone = trim($_POST['phone_validation']);
