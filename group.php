@@ -107,6 +107,7 @@ $body = <<<EOBODY
 <body onload="main()">
     <ul class="nav nav-tabs">
         <li><a href="index.html"><span class="glyphicon glyphicon-home"></span></a></li>&nbsp;&nbsp;&nbsp;&nbsp;
+        <li><a href="logout.php">Log Out</a></li> &nbsp;&nbsp;&nbsp;&nbsp;
         <li><a href="contact.html">Contact Us</a></li>
         
     </ul>
