@@ -124,8 +124,20 @@ $body = <<<EOBODY
 
     
     
-    <script> 
+    <script>
+
         function main() {
+
+            var dt = new Date();
+
+            var dd = dt.getDate();
+            var mm = dt.getMonth()+1;
+            var yyyy = dt.getFullYear();
+
+
+
+            var dateElement = document.getElementById('date');
+            dateElement.setAttribute('min', yyyy+"-0"+mm+"-"+dd);
             
             var timeSlots = localStorage.getItem("timeSlots");
             if (timeSlots == null) {
@@ -152,6 +164,7 @@ $body = <<<EOBODY
                 localStorage.clear();
                 // localStorage.setItem("timeSlots") = null;
             }
+
         }
     </script>
     
