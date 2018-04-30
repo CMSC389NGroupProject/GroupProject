@@ -2,6 +2,8 @@
 
 require_once "support.php";
 
+$message = "<tr><td>No Overlap Yet</td></tr>";
+
 if (isset($_POST['submitDate'])) {
     $nameValue = trim($_POST['name']);
     $dateValue = trim($_POST['date']);
@@ -62,21 +64,25 @@ if (isset($_POST['submitDate'])) {
 
     $result = $db_connection->query($query);
 
+
     if (!$result) {
         die("Retrieval failed: ". $db_connection->error);
 	} else {
         $num_rows = $result->num_rows;
 		if ($num_rows === 0) {
-			$message = "No Overlap Yet";
+			$message = "<tr><td>No Overlap Yet</td></tr>";
 		} else {
-            $message = "current common date(s) is(are): ";
+            // $message = "<div style = 'width: 30%; margin-left:900px; position:absolute; top:8%; margin-top:-50px;' class='container'>";
+            // $message .= "<h2>Common Best Common Date</h2>";
+            $message = "";
 			for ($row_index = 0; $row_index < $num_rows; $row_index++) {
 				$result->data_seek($row_index);
                 $row = $result->fetch_array(MYSQLI_ASSOC);
                 
                 $date = $row['date'];
-                $message .= "$date, ";
-			}
+                $message .= "<tr><td>$date</td></tr>";
+            }
+            // $message .= "</div>";
 		}
     }
 
@@ -95,7 +101,7 @@ if (isset($_POST["resetDate"])) {
 
     $db_connection->query($query);
     
-    $message = "No Overlap Yet";
+    $message = "<tr><td>No Overlap Yet</td></tr>";
 
     /* Freeing memory */
     $db_connection->close();
@@ -171,14 +177,25 @@ $body = <<<EOBODY
 
         }
     </script>
-    
+
+    <div style='margin-top:-10px;'>
     <h2>Avaiable Date Slots</h2>
     <ol id="timeSlots"></ol>
-    <p style= "color:red;">$message</p>
+    </div>
     
     <form id="reset" action="{$_SERVER['PHP_SELF']}" method="post">
         <input style="width:30%;" type="submit" name="resetDate" id="resetDate" value="Reset Date Slots">
     </form>
+
+    <div style = 'width: 30%; margin-left:920px; position:absolute; top:8%; margin-top:-50px;' class='container'>
+        <h2>The Best Common Date</h2>
+        <table class='table table-striped'>
+        <thead><tr> <th>Year-Month-Day</th> </tr></thead>
+        <tbody>
+            $message
+        </tbody>
+        </table>
+    </div>
 </body>
 EOBODY;
 
