@@ -31,7 +31,6 @@ $upper = <<<EOBODY
     <li><a href="contact.html">Contact Us</a></li>
 
 </ul>
-
         <div style="padding-left: 38em; padding-right: 38em">
             <h2>Register New Account</h2>
             <strong>Name: </strong>
