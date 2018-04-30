@@ -34,6 +34,7 @@ if (isset($_POST['submitDate'])) {
     /* Freeing memory */
     $result->close();
 
+    //Find common avaliable time
     $query = "CREATE TEMPORARY TABLE uniqueName 
     select DISTINCT(date), name
     from timeslots
@@ -66,7 +67,7 @@ if (isset($_POST['submitDate'])) {
 	} else {
         $num_rows = $result->num_rows;
 		if ($num_rows === 0) {
-			$message = "not overlap";
+			$message = "No Overlap Yet";
 		} else {
 			for ($row_index = 0; $row_index < $num_rows; $row_index++) {
 				$result->data_seek($row_index);
@@ -93,7 +94,7 @@ if (isset($_POST["resetDate"])) {
 
     $db_connection->query($query);
     
-    $message = "not overlap";
+    $message = "No Overlap Yet";
 
     /* Freeing memory */
     $db_connection->close();
@@ -153,9 +154,13 @@ $body = <<<EOBODY
             
             /* Using anonymous function as listener */
             document.getElementById("submitDate").onclick = function() {
+                if (localStorage.getItem("timeSlots") != null) {
+                    var previousTimeSlots = localStorage.getItem("timeSlots");
+                } else {
+                    var previousTimeSlots = "";
+                }
                 var timeSlots = document.getElementById("timeSlots").innerHTML;
                 // alter("time slots is: " + timeSlots);
-                var previousTimeSlots = localStorage.getItem("timeSlots");
                 var name = document.getElementById("name").value;
                 var date = document.getElementById("date").value;
                 localStorage.setItem("timeSlots", previousTimeSlots + "<li>" + name + " " + date + "</li>");
