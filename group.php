@@ -127,25 +127,6 @@ $body = <<<EOBODY
     <script> 
         function main() {
             
-            function Person(name) {
-                this.name = name;
-                this.timeArray = new Array();
-            }
-            
-            var personArray = new Array();
-            
-            
-            function exits(personList, singlePerson) {
-                var length = personList.length;
-                
-                for (let index = 0; index < length; index++) {
-                    if (personList[index].name == singlePerson.name) {
-                        return true;
-                    }
-                }
-                return false;
-            }
-            
             var timeSlots = localStorage.getItem("timeSlots");
             if (timeSlots == null) {
                 timeSlots = "<li>Nothing yet</li>"
