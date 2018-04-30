@@ -166,10 +166,13 @@ if (isset($_POST['submit'])) {
         $Phone = trim($_POST['phone_validation']);
         $Gender = trim($_POST['gender']);
 
-        // $sqlQuery = sprintf("insert into $table (name,email,tel,gender,password) values ('%s','%s','%s','%s','%s')",
-        //     trim($_POST['name']), trim($_POST['email']), trim($_POST['phone_validation']), trim($_POST['gender']), $hashed);
+        $sqlQuery = sprintf("insert into $table (name,email,tel,gender,password) values ('%s','%s','%s','%s','%s')",
+            trim($_POST['name']), trim($_POST['email']), trim($_POST['phone_validation']), trim($_POST['gender']), $hashed);
 
-        $sqlQuery = "insert into $table values($Name, $Email, $Phone, $Gender, $hashed, LOAD_FILE('image/'$image_name)";
+        // $imagetmp= addslashes(file_get_contents($_FILES['image']['tmp_name']));
+
+
+        // $sqlQuery = "insert into $table values($Name, $Email, $Phone, $Gender, $hashed, $imagetmp)";
 
         $result = mysqli_query($db, $sqlQuery);
 
