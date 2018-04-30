@@ -3,6 +3,7 @@
 require_once "support.php";
 
 $message = "<tr><td>No Overlap Yet</td></tr>";
+$script = "";
 
 if (isset($_POST['submitDate'])) {
     $nameValue = trim($_POST['name']);
@@ -93,6 +94,61 @@ if (isset($_POST['submitDate'])) {
     
 }
 
+    /* Connecting to the database */
+    $db_connection = connectToDB();
+
+    //Find common avaliable time
+    $query = "CREATE TEMPORARY TABLE uniqueName 
+    select DISTINCT(date), name
+    from timeslots
+    group by date, name";
+
+    $db_connection->query($query);
+
+    $query = "CREATE TEMPORARY TABLE numOfDate
+    select date, count(*) as num
+    from uniqueName
+    group by date";
+
+    $db_connection->query($query);
+
+    $query = "CREATE TEMPORARY TABLE maxDate
+    select max(num) as num
+    from numOfDate
+    where num > 1";
+
+    $db_connection->query($query);
+
+    $query = "select date
+    from numOfDate, maxDate
+    where numOfDate.num = maxDate.num";
+
+    $result = $db_connection->query($query);
+
+
+    if (!$result) {
+        die("Retrieval failed: ". $db_connection->error);
+	} else {
+        $num_rows = $result->num_rows;
+		if ($num_rows === 0) {
+			$message = "<tr><td>No Overlap Yet</td></tr>";
+		} else {
+            $message = "";
+			for ($row_index = 0; $row_index < $num_rows; $row_index++) {
+				$result->data_seek($row_index);
+                $row = $result->fetch_array(MYSQLI_ASSOC);
+                
+                $date = $row['date'];
+                $message .= "<tr><td>$date</td></tr>";
+            }
+		}
+    }
+
+    /* Freeing memory */
+    $result->close();
+    $db_connection->close();
+
+
 if (isset($_POST["resetDate"])) {
     /* Connecting to the database */
     $db_connection = connectToDB();
@@ -124,11 +180,13 @@ $body = <<<EOBODY
             <strong>Name: </strong>
             <input type="text" name="name" id="name" required/></br></br>
             <strong>Date: </strong>
-            <input type='date' id="date" name="date"><span class="glyphicon glyphicon-calendar"></span>
+            <input type='date' id="date" name="date" required><span class="glyphicon glyphicon-calendar"></span>
             
             <input type="submit" name="submitDate" id="submitDate" value = "submit Time"></br>
         </div>
     </form>
+
+    
 
     
     
@@ -158,17 +216,17 @@ $body = <<<EOBODY
             /* Using anonymous function as listener */
             document.getElementById("submitDate").onclick = function() {
                 if (localStorage.getItem("timeSlots") != null) {
-                    var previousTimeSlots = localStorage.getItem("timeSlots");
+                    var previousTimeSlots = localStorage.getItem('timeSlots');
                 } else {
                     var previousTimeSlots = "";
                 }
                 var timeSlots = document.getElementById("timeSlots").innerHTML;
-                // alter("time slots is: " + timeSlots);
                 var name = document.getElementById("name").value;
                 var date = document.getElementById("date").value;
-                localStorage.setItem("timeSlots", previousTimeSlots + "<li>" + name + " " + date + "</li>");
-                // alert("Data saved");
-            };
+                if (name != "" && date != "") {
+                    localStorage.setItem("timeSlots", previousTimeSlots + "<li>" + name + " " + date + "</li>");
+                }
+            }
             
             document.getElementById("resetDate").onclick = function() {
                 localStorage.clear();
