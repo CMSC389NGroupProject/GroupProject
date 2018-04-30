@@ -126,6 +126,8 @@ $body = <<<EOBODY
     
     <script>
 
+        "use strict"
+
         function main() {
 
             var dt = new Date();
