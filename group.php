@@ -69,12 +69,13 @@ if (isset($_POST['submitDate'])) {
 		if ($num_rows === 0) {
 			$message = "No Overlap Yet";
 		} else {
+            $message = "current common date(s) is(are): ";
 			for ($row_index = 0; $row_index < $num_rows; $row_index++) {
 				$result->data_seek($row_index);
                 $row = $result->fetch_array(MYSQLI_ASSOC);
                 
                 $date = $row['date'];
-                $message = "current common date is: $date";
+                $message .= "$date, ";
 			}
 		}
     }
@@ -173,7 +174,7 @@ $body = <<<EOBODY
     
     <h2>Avaiable Date Slots</h2>
     <ol id="timeSlots"></ol>
-    <p>$message</p>
+    <p style= "color:red;">$message</p>
     
     <form id="reset" action="{$_SERVER['PHP_SELF']}" method="post">
         <input style="width:30%;" type="submit" name="resetDate" id="resetDate" value="Reset Date Slots">
