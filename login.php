@@ -72,8 +72,6 @@ else {
             }
         } else {
             $bottomPart .= "<h2>Cannot Connect to Database Please Contact Us in Contact</h2>";
-            $bottomPart .= "<a href=\"register.php\"><button>Register</button></a>";
-            $bottomPart .= "<a href=\"index.html\"><button>Return to main menu</button></a>";
             $bottomPart .= "</div>";
         }
     }
