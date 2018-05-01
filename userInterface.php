@@ -78,7 +78,7 @@ if (isset($_COOKIE['login'])) {
 
     <div class="card" style="padding: 15px">
         
-        <img src="img_avatar.png" alt="Avatar" style="width:100%">
+        <img src="show_image.php?email= <?php $email ?> " alt="Avatar" style="width:100%">
         <br>
             <h3 style="color:blue;text-align:center;"><?php echo $name ?></h3>
             <p class="title">Email: <?php echo $email ?></p>

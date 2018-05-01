@@ -156,9 +156,7 @@ if (isset($_POST['submit'])) {
         $hashed = password_hash(trim($_POST["pwd"]), PASSWORD_DEFAULT);
         $db = connectToDB();
 
-
         $image_name = $_FILES['image']['name'];
-
 
         $Name = trim($_POST['name']);
         $Email = trim($_POST['email']);
@@ -192,6 +190,10 @@ if (isset($_POST['submit'])) {
             $upper .= "<script>function goBack() {window.history.back();}</script>
                 <button onclick='goBack()'>Go Back</button>";
         }
+
+        mysqli_free_result($result);
+        mysqli_close($db);
+
     }
 }
 
