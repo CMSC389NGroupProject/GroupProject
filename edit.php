@@ -3,10 +3,7 @@ require_once "support.php";
 
 session_start();
 
-$message = "";
-$content = "";
 $warning = "";
-$_SESSION['update_result'] = false;
 
 if (isset($_COOKIE['login'])) {
     $db_connection = connectToDB();
@@ -32,11 +29,11 @@ if (isset($_COOKIE['login'])) {
                 $passwordValue = $row['password'];
                 
                 if ($gender === 'M') {
-                    $checkedMale = "checked";
+                    $checkedMale = "selected='selected'";
                     $checkedFemale = "";
                 } else {
                     $checkedMale = "";
-                    $checkedFemale = "checked";
+                    $checkedFemale = "selected='selected'";
                 }
 			}
 		}
@@ -67,11 +64,12 @@ if (isset($_POST['Update'])) {
     $stmt = $db_connection->prepare("UPDATE users SET name=?, email=?, tel=?, gender=?, password=? WHERE email=?");
     $stmt->bind_param("ssssss",$nameValue,$emailValue,$telValue, $gender, $newPassword, $_SESSION['email']);
     if ($stmt->execute()) {
-        $content .= "<p><b>Name: </b>$nameValue</p>";
-        $content .= "<p><b>Email: </b>$emailValue</p>";
-        $content .= "<p><b>tel: </b>$telValue</p>";
-        $content .= "<p><b>Gender: </b>$gender</p>";
-        $_SESSION['update_result'] = true;
+        // $content .= "<p><b>Name: </b>$nameValue</p>";
+        // $content .= "<p><b>Email: </b>$emailValue</p>";
+        // $content .= "<p><b>tel: </b>$telValue</p>";
+        // $content .= "<p><b>Gender: </b>$gender</p>";
+        // $_SESSION['update_result'] = true;
+        header("location: userinterface.php");
     } else {
         $warning = "<p style='color: red'> Fail to update this user. Please try again with correct information</p>";
     }
@@ -79,7 +77,6 @@ if (isset($_POST['Update'])) {
     $stmt->close();
     $db_connection->close();
     
-    $message = "The entry has been updated in the database and the new values are:";
 
 }
 
@@ -128,8 +125,8 @@ title="Please enter in form: (123)456-7890" value="$tel">
 <strong>Gender: </strong>
 <select name="gender" size="1" required >
 <option value="N">Prefer Not Answer</option>
-<option value="M">Male</option> 
-<option value="F">Female</option>
+<option value="M" $checkedMale>Male</option> 
+<option value="F" $checkedFmale>Female</option>
 </select><br><br>
 </div><br>
 
@@ -150,6 +147,7 @@ title="Please enter in form: (123)456-7890" value="$tel">
 <form method="post">
 <button type="submit" name="back">Back to Profile</button>
 </form>
+$warning
 </div>
 
 <script>
@@ -227,25 +225,21 @@ title="Please enter in form: (123)456-7890" value="$tel">
    </script>
 EOBODY;
 
-$updated = <<<EOBODY
-<ul class="nav nav-tabs">
-	<li><a href="index.html"><span class="glyphicon glyphicon-home"></span></a></li>&nbsp;&nbsp;&nbsp;&nbsp;
-    <li><a href="logout.php">Log Out</a></li>&nbsp;&nbsp;&nbsp;&nbsp;
-    <li><a href="contact.html">Contact Us</a></li>
-</ul>
-<h2>$message</h2>
-<form action="{$_SERVER["PHP_SELF"]}" method="post">
-$content
-</form>
-$warning
-EOBODY;
+// $updated = <<<EOBODY
+// <ul class="nav nav-tabs">
+// 	<li><a href="index.html"><span class="glyphicon glyphicon-home"></span></a></li>&nbsp;&nbsp;&nbsp;&nbsp;
+//     <li><a href="logout.php">Log Out</a></li>&nbsp;&nbsp;&nbsp;&nbsp;
+//     <li><a href="contact.html">Contact Us</a></li>
+// </ul>
+// <h2>$message</h2>
+// <form action="{$_SERVER["PHP_SELF"]}" method="post">
+// $content
+// </form>
+// $warning
+// EOBODY;
 
 if (isset($_POST['back'])) {
     header("location: userinterface.php");
-}
-
-if ($_SESSION['update_result']) {
-    $body = $updated;
 }
 
 $page = generatePage($body, "edit");
