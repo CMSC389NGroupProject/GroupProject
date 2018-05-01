@@ -21,6 +21,7 @@ function generatePage($body, $title="Grades Submission System") {
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <title>$title</title>	
             <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+            <link href="calendar.png" rel="icon" type="image/x-icon" />
             <link rel = "stylesheet" href = "style.css">
     </head>
     

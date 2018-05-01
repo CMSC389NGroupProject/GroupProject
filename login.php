@@ -20,14 +20,6 @@ $topPart = <<<EOBODY
 </form>
 EOBODY;
 
-$body = <<<EBODY
-    <br>
-    <strong>No such user please register</strong>
-    <form method="get">
-    <button type="submit" name="toRegister">Register</button><br />
-    <button type="submit" name="returnMain">Return to Main</button>
-</div>
-EBODY;
 $bottomPart = "";
 
 
@@ -72,12 +64,11 @@ else {
             }
         } else {
             $bottomPart .= "<h2>Cannot Connect to Database Please Contact Us in Contact</h2>";
-            $bottomPart .= "<a href=\"register.php\"><button>Register</button></a>";
-            $bottomPart .= "<a href=\"index.html\"><button>Return to main menu</button></a>";
             $bottomPart .= "</div>";
         }
     }
 }
+
 $body = $topPart.$bottomPart;
 $page = generatePage($body, "Login");
 echo $page;
