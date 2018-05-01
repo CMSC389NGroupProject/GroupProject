@@ -163,13 +163,21 @@ if (isset($_POST['submit'])) {
         $Phone = trim($_POST['phone_validation']);
         $Gender = trim($_POST['gender']);
 
-        $sqlQuery = sprintf("insert into $table (name,email,tel,gender,password) values ('%s','%s','%s','%s','%s')",
-            trim($_POST['name']), trim($_POST['email']), trim($_POST['phone_validation']), trim($_POST['gender']), $hashed);
+        $imagetmp= addslashes(file_get_contents($_FILES['image']['tmp_name']));
 
-        // $imagetmp= addslashes(file_get_contents($_FILES['image']['tmp_name']));
+        // $imagetmp = $_FILES['image']['tmp_name'];
 
+        $serverUploadDirectory = "/Applications/MAMP/htdocs/CMSC389N Group project/GroupProject/image"; 
 
-        // $sqlQuery = "insert into $table values($Name, $Email, $Phone, $Gender, $hashed, $imagetmp)";
+        $tmpFileName = $_FILES['image']['tmp_name'];
+        $serverFileName = $serverUploadDirectory."/".$_FILES['image']['name'];
+
+        move_uploaded_file($tmpFileName, $serverFileName);
+
+        // $sqlQuery = sprintf("insert into $table (name,email,tel,gender,password) values ('%s','%s','%s','%s','%s','%b')",
+        //     trim($_POST['name']), trim($_POST['email']), trim($_POST['phone_validation']), trim($_POST['gender']), $hashed, $imagetmp);
+
+        $sqlQuery = "insert into $table values('$Name', '$Email', '$Phone', '$Gender', '$hashed', '$imagetmp')";
 
         $result = mysqli_query($db, $sqlQuery);
 
@@ -177,6 +185,7 @@ if (isset($_POST['submit'])) {
             $upper = "<div style=\"padding-left: 30em; padding-right: 30em\"><h3>Thank you for register, please go back to main page and login</h3>";
             $upper .= "<a href='index.html'><button>Return to main menu</button></a></div>";
         } else {
+            die("error here".$db->error);
             $upper = "<div style=\"padding-left: 30em; padding-right: 30em\"><h3 style='text-align: center'>Email has already been used</h3>";
             $upper .= "<script>function goBack() {window.history.back();}</script>
                 <button onclick='goBack()'>Go Back</button>";
