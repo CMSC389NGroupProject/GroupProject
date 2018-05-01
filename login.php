@@ -20,14 +20,6 @@ $topPart = <<<EOBODY
 </form>
 EOBODY;
 
-$body = <<<EBODY
-    <br>
-    <strong>No such user please register</strong>
-    <form method="get">
-    <button type="submit" name="toRegister">Register</button><br />
-    <button type="submit" name="returnMain">Return to Main</button>
-</div>
-EBODY;
 $bottomPart = "";
 
 
@@ -76,6 +68,7 @@ else {
         }
     }
 }
+
 $body = $topPart.$bottomPart;
 $page = generatePage($body, "Login");
 echo $page;
