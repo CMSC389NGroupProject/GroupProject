@@ -51,30 +51,48 @@ if (isset($_COOKIE['login'])) {
 if (isset($_POST['Update'])) {
     
     $emailValue = trim($_POST['email']);
+    $oldEmail = $_SESSION['email'];
     $nameValue = trim($_POST['name']);
     $telValue = trim($_POST['phone_validation']);
     $gender = $_POST['gender'];
     $newPassword = password_hash($_POST['password'], PASSWORD_BCRYPT);
+
+    $image_name = $_FILES['image']['name'];
+    $imagetmp= addslashes(file_get_contents($_FILES['image']['tmp_name']));
+    $serverUploadDirectory = "/Applications/MAMP/htdocs/CMSC/GroupProject/Group/GroupProject/image"; 
+
+    $tmpFileName = $_FILES['image']['tmp_name'];
+    $serverFileName = $serverUploadDirectory."/".$_FILES['image']['name'];
+
+    move_uploaded_file($tmpFileName, $serverFileName);
     
     /* Connecting to the database */
     $db_connection = connectToDB();
     
     
     
-    $stmt = $db_connection->prepare("UPDATE users SET name=?, email=?, tel=?, gender=?, password=? WHERE email=?");
-    $stmt->bind_param("ssssss",$nameValue,$emailValue,$telValue, $gender, $newPassword, $_SESSION['email']);
-    if ($stmt->execute()) {
-        // $content .= "<p><b>Name: </b>$nameValue</p>";
-        // $content .= "<p><b>Email: </b>$emailValue</p>";
-        // $content .= "<p><b>tel: </b>$telValue</p>";
-        // $content .= "<p><b>Gender: </b>$gender</p>";
-        // $_SESSION['update_result'] = true;
+    // $stmt = $db_connection->prepare("UPDATE users SET name=?, email=?, tel=?, gender=?, password=?, image=? WHERE email=?");
+    // $stmt->bind_param("sssssss",$nameValue,$emailValue,$telValue, $gender, $newPassword, $imagetmp, $_SESSION['email']);
+
+
+    $sqlQuery = "Update users Set name='$nameValue', email='$emailValue', tel='$telValue', gender='$gender', password='$newPassword', image='$imagetmp' WHERE email='$oldEmail'";
+
+    $result = mysqli_query($db_connection, $sqlQuery);
+
+    // if ($stmt->execute()) {
+    //     header("location: userinterface.php");
+    // } else {
+    //     $warning = "<p style='color: red'> Fail to update this user. Please try again with correct information</p>";
+    // }
+
+    if ($result) {
         header("location: userinterface.php");
     } else {
-        $warning = "<p style='color: red'> Fail to update this user. Please try again with correct information</p>";
+        // $warning = "<p style='color: red'> Fail to update this user. Please try again with correct information</p>";
+        die("error".$db_connection->error);
     }
     
-    $stmt->close();
+    $result->close();
     $db_connection->close();
     
 
@@ -138,6 +156,9 @@ title="Please enter in form: (123)456-7890" value="$tel">
 <label style="display: block;">
 <b>Verify Password: </b>
 <input type="password" name="verifyPassword" id="verifyPassword" onkeyup='check();' required>
+<strong>Image to upload: </strong>
+            <input type="file" name="image" id="image" accept="image/*">
+            <input type="hidden" name="MAX_FILE_SIZE" value="300000" >
 </label>
 <span id='message'></span>
 </div>
