@@ -4,6 +4,8 @@ require_once "support.php";
 session_start();
 
 $warning = "";
+$checkedMale="";
+$checkedFmale="";
 
 if (isset($_COOKIE['login'])) {
     $db_connection = connectToDB();
