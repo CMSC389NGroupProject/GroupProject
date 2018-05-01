@@ -22,13 +22,12 @@ EOBODY;
 
 $bottomPart = "";
 
+$body = <<<EBODY
+    <br>
+    <strong>No such user please register</strong>
 
-if(isset($_GET["toRegister"])){
-    header("location:register.php");
-}
-if (isset($_GET['returnMain'])){
-    header("location:index.html");
-}
+</div>
+EBODY;
 
 if (isset($_COOKIE['login'])){
     header("location:userInterface.php");
