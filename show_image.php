@@ -4,7 +4,7 @@ require_once "support.php";
 
 $db = connectToDB();
 
-if(isset($_GET['email']){
+if(isset($_GET['email'])){
 	$table = "users";
 	$Email = $_GET['email'];
 
