@@ -4,8 +4,6 @@ require_once "support.php";
 session_start();
 
 $warning = "";
-$checkedMale="";
-$checkedFmale="";
 
 if (isset($_COOKIE['login'])) {
     $db_connection = connectToDB();
@@ -125,7 +123,7 @@ title="Please enter in form: (123)456-7890" value="$tel">
 <select name="gender" size="1" required >
 <option value="N">Prefer Not Answer</option>
 <option value="M" $checkedMale>Male</option> 
-<option value="F" $checkedFmale>Female</option>
+<option value="F" $checkedFemale>Female</option>
 </select><br><br>
 </div><br>
 
