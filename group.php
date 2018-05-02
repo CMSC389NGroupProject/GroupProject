@@ -211,7 +211,6 @@ $body = <<<EOBODY
             var dateElement = document.getElementById('date');
             dateElement.setAttribute('min', yyyy+"-0"+mm+"-"+dd);
 
-            alert(yyyy+"-0"+mm+"-"+dd);
             
             var timeSlots = localStorage.getItem("timeSlots");
             if (timeSlots == null) {
