@@ -180,7 +180,7 @@ $body = <<<EOBODY
             <strong>Name: </strong>
             <input type="text" name="name" id="name" required/></br></br>
             <strong>Date: </strong>
-            <input type='date' id="date" name="date" required><span class="glyphicon glyphicon-calendar"></span>
+            <input type='date' id="date" name="date" min="" required><span class="glyphicon glyphicon-calendar"></span>
             
             <input type="submit" name="submitDate" id="submitDate" value = "submit Time"></br>
         </div>
@@ -197,15 +197,21 @@ $body = <<<EOBODY
         function main() {
 
             var dt = new Date();
-
-            var dd = dt.getDate();
             var mm = dt.getMonth()+1;
             var yyyy = dt.getFullYear();
+
+            if (dt.getDate() > 10) {
+                var dd = dt.getDate();
+            } else {
+                var dd = "0"+dt.getDate();
+            }
 
 
 
             var dateElement = document.getElementById('date');
             dateElement.setAttribute('min', yyyy+"-0"+mm+"-"+dd);
+
+            alert(yyyy+"-0"+mm+"-"+dd);
             
             var timeSlots = localStorage.getItem("timeSlots");
             if (timeSlots == null) {
