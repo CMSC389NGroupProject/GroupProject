@@ -55,9 +55,7 @@ if (isset($_COOKIE['login'])) {
 
                 if ($gender === 'M') {
                     $checkedMale = "checked";
-                    $checkedFemale = "";
                 } else {
-                    $checkedMale = "";
                     $checkedFemale = "checked";
                 }
 			}
