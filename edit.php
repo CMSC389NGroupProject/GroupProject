@@ -30,9 +30,9 @@ if (isset($_COOKIE['login'])) {
                 
                 if ($gender === 'M') {
                     $checkedMale = "selected='selected'";
-                    // $checkedFemale = "";
+                    $checkedFemale = "";
                 } else {
-                    // $checkedMale = "";
+                    $checkedMale = "";
                     $checkedFemale = "selected='selected'";
                 }
 			}
@@ -60,14 +60,29 @@ if (isset($_POST['Update'])) {
     /* Connecting to the database */
     $db_connection = connectToDB();
 
-    // $image_name = $_FILES['image']['name'];
-    // $imagetmp= addslashes(file_get_contents($_FILES['image']['tmp_name']));
-    // $serverUploadDirectory = "C:\\xampp\htdocs\CMSC389N\groupproject\image"; 
+    $image_name = $_FILES['image']['name'];
+    $imagetmp= file_get_contents($_FILES['image']['tmp_name']);
+    $serverUploadDirectory = "C:\\xampp\htdocs\CMSC389N\groupproject\image"; 
+
+    $tmpFileName = $_FILES['image']['tmp_name'];
+    $serverFileName = $serverUploadDirectory."/".$_FILES['image']['name'];
+    
+    move_uploaded_file($tmpFileName, $serverFileName);
     
     
+    if (empty($imagetmp)) {
+        echo "test";
+        $stmt = $db_connection->prepare("UPDATE users SET name=?, email=?, tel=?, gender=?, password=?, image=? WHERE email=?");
+        $stmt->bind_param("sssssbs",$nameValue,$emailValue,$telValue, $gender, $newPassword, $imagetmp, $_SESSION['email']);
+    } else {
+        $stmt = $db_connection->prepare("UPDATE users SET name=?, email=?, tel=?, gender=?, password=? WHERE email=?");
+        $stmt->bind_param("ssssss",$nameValue,$emailValue,$telValue, $gender, $newPassword, $_SESSION['email']);
+    }
+
+    // if (!$imagetmp) {
+    //     $sqlQuery = "UPDATE users SET image='$imagetmp'";
+    // }
     
-    $stmt = $db_connection->prepare("UPDATE users SET name=?, email=?, tel=?, gender=?, password=?, image=? WHERE email=?");
-    $stmt->bind_param("sssssss",$nameValue,$emailValue,$telValue, $gender, $newPassword, $imagetmp, $_SESSION['email']);
 
     if ($stmt->execute()) {
         header("location: userinterface.php");
