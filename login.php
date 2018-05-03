@@ -41,6 +41,7 @@ else {
         $password = trim($_POST["password"]);
         $db = connectToDB();
         $sqlQuery = sprintf("select password from users where email='%s'", $login);
+
         $result = mysqli_query($db, $sqlQuery);
 
         if ($result) {

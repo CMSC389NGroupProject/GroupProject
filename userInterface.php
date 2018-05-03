@@ -27,58 +27,53 @@ require("support.php");
 session_start();
 
 if (isset($_COOKIE['login'])) {
-    $db_connection = connectToDB();
 
-    $query = "SELECT * FROM users WHERE email='{$_SESSION['email']}'";
-    $result = $db_connection->query($query);
-    if (!$result) {
-		die("Retrieval failed: ". $db_connection->error);
-	} else {
-		/* Number of rows found */
-		$num_rows = $result->num_rows;
-		if ($num_rows === 0) {
-			echo "Empty Table<br>";
-		} else {
-			for ($row_index = 0; $row_index < $num_rows; $row_index++) {
-				$result->data_seek($row_index);
-                $row = $result->fetch_array(MYSQLI_ASSOC);
-                
-                $name = $row['name'];
+        $db_connection = connectToDB();
 
-                $email = $row['email'];
+        $query = "SELECT * FROM users WHERE email ='{$_SESSION['email']}'";
 
-                $tel = $row['tel'];
+        $result1 = mysqli_query($db_connection, $query);
 
-                $gender = $row['gender'];
 
-                $passwordValue = $row['password'];
+        while($row = mysqli_fetch_array($result1)){
 
-                if ($gender === 'M') {
-                    $checkedMale = "checked";
-                    $checkedFemale = "";
-                } else {
-                    $checkedMale = "";
-                    $checkedFemale = "checked";
-                }
-			}
-		}
-	}
-	
-	/* Freeing memory */
-	$result->close();
-	
-	/* Closing connection */
-    $db_connection->close();
+            $name = $row['name'];
+
+            $email = $row['email'];
+
+            $tel = $row['tel'];
+
+            $gender = $row['gender'];
+
+            $passwordValue = $row['password'];
+
+            $imagedata = $row['image'];
+
+        }
+
+    /* Freeing memory */
+    mysqli_free_result($result);
+    
+    
+    /* Closing connection */
+    mysqli_close($db_connection);
+
+
+
 }else {
     header ("Location: login.php");
 }
 ?>
 
+
 <div style="padding: 30em;padding-top: 10px">
 
     <div class="card" style="padding: 15px">
         
-        <img src="show_image.php?email= <?php $email ?> " alt="Avatar" style="width:100%">
+        <?php 
+        echo '<img width="100%" height="100%" src="data:image/jpg;base64,'.base64_encode($imagedata).' "> ';
+        ?>
+
         <br>
             <h3 style="color:blue;text-align:center;"><?php echo $name ?></h3>
             <p class="title">Email: <?php echo $email ?></p>
@@ -91,19 +86,6 @@ if (isset($_COOKIE['login'])) {
                  }?></p>
 
     </div>
-
-<!--     <div class="row">
-        <div class="column">
-            <div class="card" >
-                <img src="img_avatar.png" alt="Avatar" style="width:100%" class="cent4">
-                <div class="container">
-                    <h2><?php echo $name ?></h2>
-                    <p class="title">Email: <?php echo $email ?></p>
-                    <p class="title">Tel: <?php echo $tel ?></p>
-                    <p class="title">Gender: <?php echo $gender ?></p>
-                </div>
-            </div>
-    </div> -->
 
     <div>
         <br>
