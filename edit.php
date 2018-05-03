@@ -59,29 +59,9 @@ if (isset($_POST['Update'])) {
     
     /* Connecting to the database */
     $db_connection = connectToDB();
-
-    $image_name = $_FILES['image']['name'];
-    $imagetmp= file_get_contents($_FILES['image']['tmp_name']);
-    $serverUploadDirectory = "C:\\xampp\htdocs\CMSC389N\groupproject\image"; 
-
-    $tmpFileName = $_FILES['image']['tmp_name'];
-    $serverFileName = $serverUploadDirectory."/".$_FILES['image']['name'];
     
-    move_uploaded_file($tmpFileName, $serverFileName);
-    
-    
-    if (empty($imagetmp)) {
-        echo "test";
-        $stmt = $db_connection->prepare("UPDATE users SET name=?, email=?, tel=?, gender=?, password=?, image=? WHERE email=?");
-        $stmt->bind_param("sssssbs",$nameValue,$emailValue,$telValue, $gender, $newPassword, $imagetmp, $_SESSION['email']);
-    } else {
-        $stmt = $db_connection->prepare("UPDATE users SET name=?, email=?, tel=?, gender=?, password=? WHERE email=?");
-        $stmt->bind_param("ssssss",$nameValue,$emailValue,$telValue, $gender, $newPassword, $_SESSION['email']);
-    }
-
-    // if (!$imagetmp) {
-    //     $sqlQuery = "UPDATE users SET image='$imagetmp'";
-    // }
+    $stmt = $db_connection->prepare("UPDATE users SET name=?, email=?, tel=?, gender=?, password=? WHERE email=?");
+    $stmt->bind_param("ssssss",$nameValue,$emailValue,$telValue, $gender, $newPassword, $_SESSION['email']);
     
 
     if ($stmt->execute()) {
@@ -156,10 +136,6 @@ title="Please enter in form: (123)456-7890" value="$tel">
 <input type="password" name="verifyPassword" id="verifyPassword" onkeyup='check();' required>
 </label>
 <span id='message'></span>
-
-<strong>Image to upload: </strong>
-            <input type="file" name="image" id="image" accept="image/*">
-            <input type="hidden" name="MAX_FILE_SIZE" value="300000" >
 
 </div>
 
