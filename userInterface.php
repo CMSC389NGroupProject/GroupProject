@@ -34,7 +34,6 @@ if (isset($_COOKIE['login'])) {
 
         $result1 = mysqli_query($db_connection, $query);
 
-
         while($row = mysqli_fetch_array($result1)){
 
             $name = $row['name'];
@@ -49,10 +48,11 @@ if (isset($_COOKIE['login'])) {
 
             $imagedata = $row['image'];
 
+
         }
 
     /* Freeing memory */
-    mysqli_free_result($result);
+    mysqli_free_result($result1);
     
     
     /* Closing connection */
@@ -71,8 +71,15 @@ if (isset($_COOKIE['login'])) {
     <div class="card" style="padding: 15px">
         
         <?php 
-        echo '<img width="100%" height="100%" src="data:image/jpg;base64,'.base64_encode($imagedata).' "> ';
-        ?>
+        if (empty($imagedata)){
+            // $imagedata = "img_avatar.jpg";
+            ?>
+            <img src="img_avatar.jpg" width="100%" height="100%">
+            <?php
+        }else{
+            echo '<img width="100%" height="100%" src="data:image/jpg;base64,'.base64_encode($imagedata).' "> ';
+        }
+        ?> 
 
         <br>
             <h3 style="color:blue;text-align:center;"><?php echo $name ?></h3>
