@@ -202,7 +202,11 @@ $body = <<<EOBODY
             var mm = dt.getMonth()+1;
             var yyyy = dt.getFullYear();
 
-
+            if (dt.getDate() > 10) {
+                var dd = dt.getDate();
+            } else {
+                var dd = "0"+dt.getDate();
+            }
 
             var dateElement = document.getElementById('date');
             dateElement.setAttribute('min', yyyy+"-0"+mm+"-"+dd);
