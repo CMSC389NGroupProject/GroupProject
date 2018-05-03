@@ -27,7 +27,6 @@ require("support.php");
 session_start();
 
 if (isset($_COOKIE['login'])) {
-<<<<<<< HEAD
 
         $db_connection = connectToDB();
 
@@ -61,48 +60,6 @@ if (isset($_COOKIE['login'])) {
 
 
 
-=======
-    $db_connection = connectToDB();
-
-    $query = "SELECT * FROM users WHERE email='{$_SESSION['email']}'";
-    $result = $db_connection->query($query);
-    if (!$result) {
-		die("Retrieval failed: ". $db_connection->error);
-	} else {
-		/* Number of rows found */
-		$num_rows = $result->num_rows;
-		if ($num_rows === 0) {
-			echo "Empty Table<br>";
-		} else {
-			for ($row_index = 0; $row_index < $num_rows; $row_index++) {
-				$result->data_seek($row_index);
-                $row = $result->fetch_array(MYSQLI_ASSOC);
-                
-                $name = $row['name'];
-
-                $email = $row['email'];
-
-                $tel = $row['tel'];
-
-                $gender = $row['gender'];
-
-                $passwordValue = $row['password'];
-
-                if ($gender === 'M') {
-                    $checkedMale = "checked";
-                } else {
-                    $checkedFemale = "checked";
-                }
-			}
-		}
-	}
-	
-	/* Freeing memory */
-	$result->close();
-	
-	/* Closing connection */
-    $db_connection->close();
->>>>>>> 7a8c36d7189c203d336d7870e55a33725a0d9ed5
 }else {
     header ("Location: login.php");
 }
@@ -113,14 +70,10 @@ if (isset($_COOKIE['login'])) {
 
     <div class="card" style="padding: 15px">
         
-<<<<<<< HEAD
         <?php 
         echo '<img width="100%" height="100%" src="data:image/jpg;base64,'.base64_encode($imagedata).' "> ';
         ?>
 
-=======
-        <img src="img_avatar.png" alt="Avatar" style="width:100%">
->>>>>>> 7a8c36d7189c203d336d7870e55a33725a0d9ed5
         <br>
             <h3 style="color:blue;text-align:center;"><?php echo $name ?></h3>
             <p class="title">Email: <?php echo $email ?></p>
