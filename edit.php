@@ -30,9 +30,9 @@ if (isset($_COOKIE['login'])) {
                 
                 if ($gender === 'M') {
                     $checkedMale = "selected='selected'";
-                    $checkedFemale = "";
+                    // $checkedFemale = "";
                 } else {
-                    $checkedMale = "";
+                    // $checkedMale = "";
                     $checkedFemale = "selected='selected'";
                 }
 			}
@@ -59,6 +59,10 @@ if (isset($_POST['Update'])) {
     
     /* Connecting to the database */
     $db_connection = connectToDB();
+
+    // $image_name = $_FILES['image']['name'];
+    // $imagetmp= addslashes(file_get_contents($_FILES['image']['tmp_name']));
+    // $serverUploadDirectory = "C:\\xampp\htdocs\CMSC389N\groupproject\image"; 
     
     
     
@@ -123,7 +127,7 @@ title="Please enter in form: (123)456-7890" value="$tel">
 <select name="gender" size="1" required >
 <option value="N">Prefer Not Answer</option>
 <option value="M" $checkedMale>Male</option> 
-<option value="F" $checkedFmale>Female</option>
+<option value="F" $checkedFemale>Female</option>
 </select><br><br>
 </div><br>
 
@@ -137,6 +141,11 @@ title="Please enter in form: (123)456-7890" value="$tel">
 <input type="password" name="verifyPassword" id="verifyPassword" onkeyup='check();' required>
 </label>
 <span id='message'></span>
+
+<strong>Image to upload: </strong>
+            <input type="file" name="image" id="image" accept="image/*">
+            <input type="hidden" name="MAX_FILE_SIZE" value="300000" >
+
 </div>
 
 <button type="submit" name="Update">Submit Change</button>
