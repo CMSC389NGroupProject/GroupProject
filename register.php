@@ -167,7 +167,7 @@ if (isset($_POST['submit'])) {
 
         // $imagetmp = $_FILES['image']['tmp_name'];
 
-        $serverUploadDirectory = "/Applications/MAMP/htdocs/CMSC389N Group project/GroupProject/image"; 
+        $serverUploadDirectory = "C:\\xampp\htdocs\CMSC389N\groupproject\image"; 
 
         $tmpFileName = $_FILES['image']['tmp_name'];
         $serverFileName = $serverUploadDirectory."/".$_FILES['image']['name'];
@@ -191,7 +191,6 @@ if (isset($_POST['submit'])) {
                 <button onclick='goBack()'>Go Back</button>";
         }
 
-        mysqli_free_result($result);
         mysqli_close($db);
 
     }

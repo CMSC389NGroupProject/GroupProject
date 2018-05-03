@@ -58,6 +58,7 @@ else {
                         setcookie($name,$login);
                     }
                     session_start();
+                    
                     $_SESSION['email'] = $login;
                     header("location:userInterface.php");
                 }
